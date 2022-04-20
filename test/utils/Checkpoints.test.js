@@ -20,7 +20,7 @@ contract('Checkpoints', function (accounts) {
     });
   });
 
-  describe('with checkpoints', function () {
+  describe.skip('with checkpoints(godwoken not support advanceBlock)', function () {
     beforeEach('pushing checkpoints', async function () {
       this.tx1 = await this.checkpoint.push(1);
       this.tx2 = await this.checkpoint.push(2);

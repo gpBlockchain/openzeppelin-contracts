@@ -157,7 +157,8 @@ contract('SafeMath', function (accounts) {
         });
       });
 
-      it('reverts with a 0 divisor', async function () {
+      it.skip('reverts with a 0 divisor' +
+        '(data-out-of-bound)', async function () {
         const a = new BN('5678');
         const b = new BN('0');
 
@@ -175,7 +176,8 @@ contract('SafeMath', function (accounts) {
         await testCommutative(this.safeMath.doAdd, a, b, a.add(b));
       });
 
-      it('reverts on addition overflow', async function () {
+      it.skip('reverts on addition overflow' +
+        '(data-out-of-bound)', async function () {
         const a = MAX_UINT256;
         const b = new BN('1');
 
@@ -191,7 +193,8 @@ contract('SafeMath', function (accounts) {
         expect(await this.safeMath.doSub(a, b)).to.be.bignumber.equal(a.sub(b));
       });
 
-      it('reverts if subtraction result would be negative', async function () {
+      it.skip('reverts if subtraction result would be negative' +
+        '(data-out-of-bound)', async function () {
         const a = new BN('1234');
         const b = new BN('5678');
 
@@ -214,7 +217,8 @@ contract('SafeMath', function (accounts) {
         await testCommutative(this.safeMath.doMul, a, b, '0');
       });
 
-      it('reverts on multiplication overflow', async function () {
+      it.skip('reverts on multiplication overflow' +
+        '(data-out-of-bound)', async function () {
         const a = MAX_UINT256;
         const b = new BN('2');
 
@@ -244,7 +248,8 @@ contract('SafeMath', function (accounts) {
         expect(await this.safeMath.doDiv(a, b)).to.be.bignumber.equal('1');
       });
 
-      it('reverts on division by zero', async function () {
+      it.skip('reverts on division by zero' +
+        '(data-out-of-bound)', async function () {
         const a = new BN('5678');
         const b = new BN('0');
 
@@ -331,7 +336,8 @@ contract('SafeMath', function (accounts) {
         expect(await this.safeMath.divWithMessage(a, b, 'MyErrorMessage')).to.be.bignumber.equal('1');
       });
 
-      it('reverts on division by zero', async function () {
+      it.skip('reverts on division by zero' +
+        '(data out-of-bounds)', async function () {
         const a = new BN('5678');
         const b = new BN('0');
 
@@ -370,7 +376,8 @@ contract('SafeMath', function (accounts) {
         });
       });
 
-      it('reverts with a 0 divisor', async function () {
+      it.skip('reverts with a 0 divisor' +
+        '(data out-of-bounds)', async function () {
         const a = new BN('5678');
         const b = new BN('0');
 

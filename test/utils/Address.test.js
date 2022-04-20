@@ -40,8 +40,9 @@ contract('Address', function (accounts) {
       });
     });
 
-    context('when sender contract has funds', function () {
-      const funds = ether('1');
+    context.skip('when sender contract has funds' +
+      '(https://github.com/cryptape/godwoken-internal/issues/651)', function () {
+      const funds = ether('0.0000000000000001');
       beforeEach(async function () {
         await send.ether(other, this.mock.address, funds);
       });
@@ -148,7 +149,7 @@ contract('Address', function (accounts) {
         );
       });
 
-      it('reverts when the called function throws', async function () {
+      it.skip('reverts when the called function throws(https://github.com/nervosnetwork/godwoken-web3/issues/286)', async function () {
         const abiEncodedCall = web3.eth.abi.encodeFunctionCall({
           name: 'mockFunctionThrows',
           type: 'function',
@@ -210,7 +211,8 @@ contract('Address', function (accounts) {
     context('with non-zero value', function () {
       const amount = ether('1.2');
 
-      it('reverts if insufficient sender balance', async function () {
+      it.skip('reverts if insufficient sender balance' +
+        '(https://github.com/nervosnetwork/godwoken-web3/issues/281)', async function () {
         const abiEncodedCall = web3.eth.abi.encodeFunctionCall({
           name: 'mockFunction',
           type: 'function',
@@ -223,7 +225,8 @@ contract('Address', function (accounts) {
         );
       });
 
-      it('calls the requested function with existing value', async function () {
+      it.skip('calls the requested function with existing value' +
+        '(https://github.com/cryptape/godwoken-internal/issues/651)', async function () {
         const abiEncodedCall = web3.eth.abi.encodeFunctionCall({
           name: 'mockFunction',
           type: 'function',
@@ -232,6 +235,7 @@ contract('Address', function (accounts) {
 
         const tracker = await balance.tracker(this.contractRecipient.address);
 
+        //
         await send.ether(other, this.mock.address, amount);
         const receipt = await this.mock.functionCallWithValue(this.contractRecipient.address, abiEncodedCall, amount);
 
@@ -241,7 +245,8 @@ contract('Address', function (accounts) {
         await expectEvent.inTransaction(receipt.tx, CallReceiverMock, 'MockFunctionCalled');
       });
 
-      it('calls the requested function with transaction funds', async function () {
+      it.skip('calls the requested function with transaction funds' +
+        '(https://github.com/cryptape/godwoken-internal/issues/651)', async function () {
         const abiEncodedCall = web3.eth.abi.encodeFunctionCall({
           name: 'mockFunction',
           type: 'function',
@@ -261,7 +266,8 @@ contract('Address', function (accounts) {
         await expectEvent.inTransaction(receipt.tx, CallReceiverMock, 'MockFunctionCalled');
       });
 
-      it('reverts when calling non-payable functions', async function () {
+      it.skip('reverts when calling non-payable functions' +
+        '(https://github.com/cryptape/godwoken-internal/issues/651)', async function () {
         const abiEncodedCall = web3.eth.abi.encodeFunctionCall({
           name: 'mockFunctionNonPayable',
           type: 'function',
@@ -294,7 +300,8 @@ contract('Address', function (accounts) {
       expectEvent(receipt, 'CallReturnValue', { data: '0x1234' });
     });
 
-    it('reverts on a non-static function', async function () {
+    it.skip('reverts on a non-static function' +
+      '(https://github.com/nervosnetwork/godwoken-web3/issues/281)', async function () {
       const abiEncodedCall = web3.eth.abi.encodeFunctionCall({
         name: 'mockFunction',
         type: 'function',
@@ -320,7 +327,8 @@ contract('Address', function (accounts) {
       );
     });
 
-    it('reverts when address is not a contract', async function () {
+    it.skip('reverts when address is not a contract' +
+      '(https://github.com/nervosnetwork/godwoken-web3/issues/281)', async function () {
       const [ recipient ] = accounts;
       const abiEncodedCall = web3.eth.abi.encodeFunctionCall({
         name: 'mockFunction',
@@ -366,7 +374,8 @@ contract('Address', function (accounts) {
       );
     });
 
-    it('reverts when address is not a contract', async function () {
+    it.skip('reverts when address is not a contract' +
+      '(https://github.com/nervosnetwork/godwoken-web3/issues/281)', async function () {
       const [ recipient ] = accounts;
       const abiEncodedCall = web3.eth.abi.encodeFunctionCall({
         name: 'mockFunction',

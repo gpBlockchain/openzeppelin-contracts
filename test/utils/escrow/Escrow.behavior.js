@@ -3,7 +3,7 @@ const { balance, ether, expectEvent, expectRevert } = require('@openzeppelin/tes
 const { expect } = require('chai');
 
 function shouldBehaveLikeEscrow (owner, [payee1, payee2]) {
-  const amount = ether('42');
+  const amount = ether('0.000000000042');
 
   describe('as an escrow', function () {
     describe('deposits', function () {
