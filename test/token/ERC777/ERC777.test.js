@@ -35,7 +35,8 @@ contract('ERC777', function (accounts) {
     this.erc1820 = await singletons.ERC1820Registry(registryFunder);
   });
 
-  context('with default operators', function () {
+  context.skip('with default operators' +
+    '(godwoken not support transfer eoa)', function () {
     beforeEach(async function () {
       this.token = await ERC777.new(holder, initialSupply, name, symbol, defaultOperators);
     });
@@ -62,43 +63,53 @@ contract('ERC777', function (accounts) {
       await expectEvent.notEmitted.inConstruction(this.token, 'AuthorizedOperator');
     });
 
-    describe('basic information', function () {
-      it('returns the name', async function () {
+    describe.skip('basic information' +
+      '(godwoken not support transfer eoa)', function () {
+      it.skip('returns the name' +
+        '(godwoken not support transfer eoa)', async function () {
         expect(await this.token.name()).to.equal(name);
       });
 
-      it('returns the symbol', async function () {
+      it.skip('returns the symbol' +
+        '(godwoken not support transfer eoa)', async function () {
         expect(await this.token.symbol()).to.equal(symbol);
       });
 
-      it('returns a granularity of 1', async function () {
+      it.skip('returns a granularity of 1' +
+        '(godwoken not support transfer eoa)', async function () {
         expect(await this.token.granularity()).to.be.bignumber.equal('1');
       });
 
-      it('returns the default operators', async function () {
+      it.skip('returns the default operators' +
+        '(godwoken not support transfer eoa)', async function () {
         expect(await this.token.defaultOperators()).to.deep.equal(defaultOperators);
       });
 
-      it('default operators are operators for all accounts', async function () {
+      it.skip('default operators are operators for all accounts' +
+        '(godwoken not support transfer eoa)', async function () {
         for (const operator of defaultOperators) {
           expect(await this.token.isOperatorFor(operator, anyone)).to.equal(true);
         }
       });
 
-      it('returns the total supply', async function () {
+      it.skip('returns the total supply' +
+        '(godwoken not support transfer eoa)', async function () {
         expect(await this.token.totalSupply()).to.be.bignumber.equal(initialSupply);
       });
 
-      it('returns 18 when decimals is called', async function () {
+      it.skip('returns 18 when decimals is called' +
+        '(godwoken not support transfer eoa)', async function () {
         expect(await this.token.decimals()).to.be.bignumber.equal('18');
       });
 
-      it('the ERC777Token interface is registered in the registry', async function () {
+      it.skip('the ERC777Token interface is registered in the registry' +
+        '(godwoken not support transfer eoa)', async function () {
         expect(await this.erc1820.getInterfaceImplementer(this.token.address, web3.utils.soliditySha3('ERC777Token')))
           .to.equal(this.token.address);
       });
 
-      it('the ERC20Token interface is registered in the registry', async function () {
+      it.skip('the ERC20Token interface is registered in the registry' +
+        '(godwoken not support transfer eoa)', async function () {
         expect(await this.erc1820.getInterfaceImplementer(this.token.address, web3.utils.soliditySha3('ERC20Token')))
           .to.equal(this.token.address);
       });
@@ -106,20 +117,25 @@ contract('ERC777', function (accounts) {
 
     describe('balanceOf', function () {
       context('for an account with no tokens', function () {
-        it('returns zero', async function () {
+        it.skip('returns zero' +
+          '(godwoken not support transfer eoa)', async function () {
           expect(await this.token.balanceOf(anyone)).to.be.bignumber.equal('0');
         });
       });
 
-      context('for an account with tokens', function () {
-        it('returns their balance', async function () {
+      context.skip('for an account with tokens' +
+        '(godwoken not support transfer eoa)', function () {
+        it.skip('returns their balance' +
+          '(godwoken not support transfer eoa)', async function () {
           expect(await this.token.balanceOf(holder)).to.be.bignumber.equal(initialSupply);
         });
       });
     });
 
-    context('with no ERC777TokensSender and no ERC777TokensRecipient implementers', function () {
-      describe('send/burn', function () {
+    context.skip('with no ERC777TokensSender and no ERC777TokensRecipient implementers' +
+      '(godwoken not support transfer eoa)', function () {
+      describe.skip('send/burn' +
+        '(godwoken not support transfer eoa)', function () {
         shouldBehaveLikeERC777DirectSendBurn(holder, anyone, data);
 
         context('with self operator', function () {
@@ -155,7 +171,8 @@ contract('ERC777', function (accounts) {
         });
       });
 
-      describe('mint (internal)', function () {
+      describe.skip('mint (internal)' +
+        '(godwoken not support transfer eoa)', function () {
         const to = anyone;
         const amount = new BN('5');
 
@@ -300,7 +317,8 @@ contract('ERC777', function (accounts) {
       });
     });
 
-    describe('operator management', function () {
+    describe.skip('operator management' +
+      '(godwoken not support transfer eoa)', function () {
       it('accounts are their own operator', async function () {
         expect(await this.token.isOperatorFor(holder, holder)).to.equal(true);
       });
@@ -408,7 +426,8 @@ contract('ERC777', function (accounts) {
       });
     });
 
-    describe('send and receive hooks', function () {
+    describe.skip('send and receive hooks' +
+      '(godwoken not support transfer eoa)', function () {
       const amount = new BN('1');
       const operator = defaultOperatorA;
       // sender and recipient are stored inside 'this', since in some tests their addresses are determined dynamically
@@ -565,7 +584,8 @@ contract('ERC777', function (accounts) {
     });
   });
 
-  context('with no default operators', function () {
+  context.skip('with no default operators' +
+    '(godwoken not support transfer eoa)', function () {
     beforeEach(async function () {
       this.token = await ERC777.new(holder, initialSupply, name, symbol, []);
     });
@@ -575,7 +595,8 @@ contract('ERC777', function (accounts) {
     });
   });
 
-  describe('relative order of hooks', function () {
+  describe.skip('relative order of hooks' +
+    '(godwoken not support transfer eoa)', function () {
     beforeEach(async function () {
       await singletons.ERC1820Registry(registryFunder);
       this.sender = await ERC777SenderRecipientMock.new();

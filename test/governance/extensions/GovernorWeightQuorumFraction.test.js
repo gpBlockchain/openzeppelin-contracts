@@ -47,7 +47,8 @@ contract('GovernorVotesQuorumFraction', function (accounts) {
     ], '<proposal description>');
   });
 
-  it('deployment check', async function () {
+  it.skip('deployment check' +
+    'godwoken not support(https://github.com/nervosnetwork/godwoken-web3/issues/266)', async function () {
     expect(await this.mock.name()).to.be.equal(name);
     expect(await this.mock.token()).to.be.equal(this.token.address);
     expect(await this.mock.votingDelay()).to.be.bignumber.equal(votingDelay);
@@ -59,7 +60,8 @@ contract('GovernorVotesQuorumFraction', function (accounts) {
       .to.be.bignumber.equal(tokenSupply.mul(ratio).divn(100));
   });
 
-  it('quroum reached', async function () {
+  it.skip('quroum reached' +
+    'godwoken not support(https://github.com/nervosnetwork/godwoken-web3/issues/266)', async function () {
     await this.helper.propose();
     await this.helper.waitForSnapshot();
     await this.helper.vote({ support: Enums.VoteType.For }, { from: voter1 });
@@ -67,7 +69,8 @@ contract('GovernorVotesQuorumFraction', function (accounts) {
     await this.helper.execute();
   });
 
-  it('quroum not reached', async function () {
+  it.skip('quroum not reached' +
+    'godwoken not support(https://github.com/nervosnetwork/godwoken-web3/issues/266)', async function () {
     await this.helper.propose();
     await this.helper.waitForSnapshot();
     await this.helper.vote({ support: Enums.VoteType.For }, { from: voter2 });
@@ -75,7 +78,8 @@ contract('GovernorVotesQuorumFraction', function (accounts) {
     await expectRevert(this.helper.execute(), 'Governor: proposal not successful');
   });
 
-  describe('onlyGovernance updates', function () {
+  describe.skip('onlyGovernance updates' +
+    'godwoken not support(https://github.com/nervosnetwork/godwoken-web3/issues/266)', function () {
     it('updateQuorumNumerator is protected', async function () {
       await expectRevert(
         this.mock.updateQuorumNumerator(newRatio),

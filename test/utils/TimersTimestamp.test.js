@@ -44,7 +44,7 @@ contract('TimersTimestamp', function (accounts) {
     expect(await this.instance.isExpired()).to.be.equal(false);
   });
 
-  it('fast forward', async function () {
+  it.skip('fast forward(gw not have evm_increaseTime func)', async function () {
     await this.instance.setDeadline(this.now + 100);
     expect(await this.instance.isPending()).to.be.equal(true);
     expect(await this.instance.isExpired()).to.be.equal(false);

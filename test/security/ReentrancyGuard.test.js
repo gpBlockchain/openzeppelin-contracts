@@ -17,7 +17,8 @@ contract('ReentrancyGuard', function (accounts) {
     expect(await this.reentrancyMock.counter()).to.be.bignumber.equal('1');
   });
 
-  it('does not allow remote callback', async function () {
+  it.skip('does not allow remote callback' +
+    '(https://github.com/nervosnetwork/godwoken-web3/issues/291)', async function () {
     const attacker = await ReentrancyAttack.new();
     await expectRevert(
       this.reentrancyMock.countAndCall(attacker.address), 'ReentrancyAttack: failed call');

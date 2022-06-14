@@ -27,7 +27,7 @@ class BridgeHelper {
   }
 }
 
-async function deployBridge (type = 'Arbitrum-L2') {
+async function deployBridge (type = 'AMB') {
   switch (type) {
   case 'AMB':
     return BridgeAMBMock.new();
@@ -36,15 +36,16 @@ async function deployBridge (type = 'Arbitrum-L2') {
     return BridgeArbitrumL1Mock.new();
 
   case 'Arbitrum-L2': {
-    const instance = await BridgeArbitrumL2Mock.new();
-    const code = await web3.eth.getCode(instance.address);
-    await promisify(web3.currentProvider.send.bind(web3.currentProvider))({
-      jsonrpc: '2.0',
-      method: 'hardhat_setCode',
-      params: [ '0x0000000000000000000000000000000000000064', code ],
-      id: new Date().getTime(),
-    });
-    return BridgeArbitrumL2Mock.at('0x0000000000000000000000000000000000000064');
+    throw new Error(`CrossChain: ${type} is not supported`);
+    // const instance = await BridgeArbitrumL2Mock.new();
+    // const code = await web3.eth.getCode(instance.address);
+    // await promisify(web3.currentProvider.send.bind(web3.currentProvider))({
+    //   jsonrpc: '2.0',
+    //   method: 'hardhat_setCode',
+    //   params: [ '0x0000000000000000000000000000000000000064', code ],
+    //   id: new Date().getTime(),
+    // });
+    // return BridgeArbitrumL2Mock.at('0x0000000000000000000000000000000000000064');
   }
 
   case 'Optimism':

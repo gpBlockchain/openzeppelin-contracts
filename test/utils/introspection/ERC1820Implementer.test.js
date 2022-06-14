@@ -18,7 +18,8 @@ contract('ERC1820Implementer', function (accounts) {
     this.interfaceB = bufferToHex(keccakFromString('interfaceB'));
   });
 
-  context('with no registered interfaces', function () {
+  context.skip('with no registered interfaces' +
+    '(godwoken not support transfer eoc account)', function () {
     it('returns false when interface implementation is queried', async function () {
       expect(await this.implementer.canImplementInterfaceForAddress(this.interfaceA, implementee))
         .to.not.equal(ERC1820_ACCEPT_MAGIC);
@@ -34,7 +35,8 @@ contract('ERC1820Implementer', function (accounts) {
     });
   });
 
-  context('with registered interfaces', function () {
+  context.skip('with registered interfaces' +
+    '(godwoken not support transfer eoa account )', function () {
     beforeEach(async function () {
       await this.implementer.registerInterfaceForAddress(this.interfaceA, implementee);
     });

@@ -3,6 +3,7 @@ const { ZERO_ADDRESS } = constants;
 const { getSlot, ImplementationSlot, AdminSlot } = require('../../helpers/erc1967');
 
 const { expect } = require('chai');
+const {TransactionReceipt} = require("web3-core");
 
 const Proxy = artifacts.require('Proxy');
 const Implementation1 = artifacts.require('Implementation1');
@@ -96,7 +97,8 @@ module.exports = function shouldBehaveLikeTransparentUpgradeableProxy (createPro
         this.behavior = await InitializableMock.new();
       });
 
-      describe('when the call does not fail', function () {
+      describe.skip('when the call does not fail' +
+        '(https://github.com/nervosnetwork/godwoken-web3/issues/301)', function () {
         const initializeData = new InitializableMock('').contract.methods['initializeWithX(uint256)'](42).encodeABI();
 
         describe('when the sender is the admin', function () {
@@ -364,7 +366,8 @@ module.exports = function shouldBehaveLikeTransparentUpgradeableProxy (createPro
       expect(res.toString()).to.eq('42');
     });
 
-    it('should remove function', async () => {
+    it.skip('should remove function' +
+      '(https://github.com/nervosnetwork/godwoken-web3/issues/301)', async () => {
       const instance2 = await Implementation2.new();
       const proxy = await createProxy(instance2.address, proxyAdminAddress, initializeData, { from: proxyAdminOwner });
 
@@ -395,7 +398,7 @@ module.exports = function shouldBehaveLikeTransparentUpgradeableProxy (createPro
       expect(res.toString()).to.eq('50');
     });
 
-    it('should add fallback function', async () => {
+    it.skip('should add fallback function(https://github.com/nervosnetwork/godwoken-web3/issues/266)', async () => {
       const initializeData = Buffer.from('');
       const instance1 = await Implementation1.new();
       const proxy = await createProxy(instance1.address, proxyAdminAddress, initializeData, { from: proxyAdminOwner });
@@ -405,13 +408,14 @@ module.exports = function shouldBehaveLikeTransparentUpgradeableProxy (createPro
       const proxyInstance4 = new Implementation4(proxy.address);
 
       const data = '0x';
-      await web3.eth.sendTransaction({ to: proxy.address, from: anotherAccount, data });
-
+      await web3.eth.sendTransaction({ to: proxy.address, from: anotherAccount, data, gas: '0xffff' });
+      // eslint-disable-next-line promise/param-names
+      // await new Promise(r => setTimeout(r, 30000));
       const res = await proxyInstance4.getValue();
       expect(res.toString()).to.eq('1');
     });
 
-    it('should remove fallback function', async () => {
+    it('should remove fallback function(https://github.com/nervosnetwork/godwoken-web3/issues/266)', async () => {
       const instance4 = await Implementation4.new();
       const proxy = await createProxy(instance4.address, proxyAdminAddress, initializeData, { from: proxyAdminOwner });
 
@@ -420,7 +424,7 @@ module.exports = function shouldBehaveLikeTransparentUpgradeableProxy (createPro
 
       const data = '0x';
       await expectRevert.unspecified(
-        web3.eth.sendTransaction({ to: proxy.address, from: anotherAccount, data }),
+        web3.eth.sendTransaction({ to: proxy.address, from: anotherAccount, data, gas: '0xffff' }),
       );
 
       const proxyInstance2 = new Implementation2(proxy.address);

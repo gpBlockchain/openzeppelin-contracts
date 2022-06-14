@@ -20,6 +20,16 @@ module.exports = function shouldBehaveLikeClone (createClone) {
     });
   };
 
+  const assertProxyInitializationNonPayable = function ({ value, balance }) {
+    it('initializes the proxy', async function () {
+      const dummy = new DummyImplementation(this.proxy);
+      expect(await dummy.value()).to.be.bignumber.equal(value.toString());
+    });
+
+    it('has expected balance', async function () {
+      expect(await web3.eth.getBalance(this.proxy)).to.be.bignumber.equal(balance.toString());
+    });
+  };
   describe('initialization without parameters', function () {
     describe('non payable', function () {
       const expectedInitializedValue = 10;
@@ -32,14 +42,14 @@ module.exports = function shouldBehaveLikeClone (createClone) {
           ).address;
         });
 
-        assertProxyInitialization({
+        assertProxyInitializationNonPayable({
           value: expectedInitializedValue,
           balance: 0,
         });
       });
 
       describe('when sending some balance', function () {
-        const value = 10e5;
+        const value = 10;
 
         it('reverts', async function () {
           await expectRevert.unspecified(
@@ -66,8 +76,9 @@ module.exports = function shouldBehaveLikeClone (createClone) {
         });
       });
 
-      describe('when sending some balance', function () {
-        const value = 10e5;
+      describe.skip('when sending some balance' +
+        '(https://github.com/nervosnetwork/godwoken-web3/issues/301)', function () {
+        const value = 10;
 
         beforeEach('creating proxy', async function () {
           this.proxy = (
@@ -83,7 +94,7 @@ module.exports = function shouldBehaveLikeClone (createClone) {
     });
   });
 
-  describe('initialization with parameters', function () {
+  describe('aaavvvccc initialization with parameters', function () {
     describe('non payable', function () {
       const expectedInitializedValue = 10;
       const initializeData = new DummyImplementation('').contract
@@ -132,7 +143,7 @@ module.exports = function shouldBehaveLikeClone (createClone) {
       });
 
       describe('when sending some balance', function () {
-        const value = 10e5;
+        const value = 10;
 
         beforeEach('creating proxy', async function () {
           this.proxy = (

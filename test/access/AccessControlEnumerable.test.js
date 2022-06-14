@@ -5,8 +5,9 @@ const {
 
 const AccessControlMock = artifacts.require('AccessControlEnumerableMock');
 
-contract('AccessControl', function (accounts) {
+contract('AccessControlEnum', function (accounts) {
   beforeEach(async function () {
+    console.log('accounts[0]', accounts[0]);
     this.accessControl = await AccessControlMock.new({ from: accounts[0] });
   });
 

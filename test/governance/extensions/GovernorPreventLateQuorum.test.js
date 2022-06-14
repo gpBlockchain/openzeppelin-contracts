@@ -54,7 +54,8 @@ contract('GovernorPreventLateQuorum', function (accounts) {
     ], '<proposal description>');
   });
 
-  it('deployment check', async function () {
+  it.skip('deployment check' +
+    'godwoken not support(https://github.com/nervosnetwork/godwoken-web3/issues/266)', async function () {
     expect(await this.mock.name()).to.be.equal(name);
     expect(await this.mock.token()).to.be.equal(this.token.address);
     expect(await this.mock.votingDelay()).to.be.bignumber.equal(votingDelay);
@@ -63,7 +64,8 @@ contract('GovernorPreventLateQuorum', function (accounts) {
     expect(await this.mock.lateQuorumVoteExtension()).to.be.bignumber.equal(lateQuorumVoteExtension);
   });
 
-  it('nominal workflow unaffected', async function () {
+  it.skip('nominal workflow unaffected' +
+    'godwoken not support(https://github.com/nervosnetwork/godwoken-web3/issues/266)', async function () {
     const txPropose = await this.helper.propose({ from: proposer });
     await this.helper.waitForSnapshot();
     await this.helper.vote({ support: Enums.VoteType.For }, { from: voter1 });
@@ -107,7 +109,8 @@ contract('GovernorPreventLateQuorum', function (accounts) {
     );
   });
 
-  it('Delay is extended to prevent last minute take-over', async function () {
+  it.skip('Delay is extended to prevent last minute take-over' +
+    'godwoken not support(https://github.com/nervosnetwork/godwoken-web3/issues/266)', async function () {
     const txPropose = await this.helper.propose({ from: proposer });
 
     // compute original schedule
@@ -144,7 +147,8 @@ contract('GovernorPreventLateQuorum', function (accounts) {
     );
   });
 
-  describe('onlyGovernance updates', function () {
+  describe.skip('onlyGovernance updates' +
+    'godwoken not support(https://github.com/nervosnetwork/godwoken-web3/issues/266)', function () {
     it('setLateQuorumVoteExtension is protected', async function () {
       await expectRevert(
         this.mock.setLateQuorumVoteExtension(0),

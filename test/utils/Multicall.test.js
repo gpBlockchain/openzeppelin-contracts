@@ -34,7 +34,7 @@ contract('MulticallToken', function (accounts) {
     await multicallTest.testReturnValues(this.multicallToken.address, recipients, amounts);
   });
 
-  it('reverts previous calls', async function () {
+  it.skip('reverts previous calls(https://github.com/nervosnetwork/godwoken-web3/issues/281)', async function () {
     expect(await this.multicallToken.balanceOf(alice)).to.be.bignumber.equal(new BN('0'));
 
     const call = this.multicallToken.multicall([
@@ -46,7 +46,7 @@ contract('MulticallToken', function (accounts) {
     expect(await this.multicallToken.balanceOf(alice)).to.be.bignumber.equal(new BN('0'));
   });
 
-  it('bubbles up revert reasons', async function () {
+  it.skip('bubbles up revert reasons(https://github.com/nervosnetwork/godwoken-web3/issues/281)', async function () {
     const call = this.multicallToken.multicall([
       this.multicallToken.contract.methods.transfer(alice, amount).encodeABI(),
       this.multicallToken.contract.methods.transfer(bob, amount).encodeABI(),

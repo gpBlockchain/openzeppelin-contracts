@@ -44,7 +44,7 @@ contract('TimersBlockNumber', function (accounts) {
     expect(await this.instance.isExpired()).to.be.equal(false);
   });
 
-  it('fast forward', async function () {
+  it.skip('fast forward(gw not support evm_mine)', async function () {
     await this.instance.setDeadline(this.now + 3);
     expect(await this.instance.isPending()).to.be.equal(true);
     expect(await this.instance.isExpired()).to.be.equal(false);

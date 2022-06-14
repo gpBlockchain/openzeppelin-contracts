@@ -39,7 +39,8 @@ contract('VestingWallet', function (accounts) {
       this.vestingFn = timestamp => min(amount, amount.mul(timestamp.sub(this.start)).div(duration));
     });
 
-    describe('Eth vesting', function () {
+    describe.skip('Eth vesting' +
+      '(https://github.com/nervosnetwork/godwoken-web3/issues/266)', function () {
       beforeEach(async function () {
         await web3.eth.sendTransaction({ from: sender, to: this.mock.address, value: amount });
         this.getBalance = account => web3.eth.getBalance(account).then(web3.utils.toBN);

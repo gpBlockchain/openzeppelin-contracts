@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 extendEnvironment(env => {
   const { contract } = env;
 
