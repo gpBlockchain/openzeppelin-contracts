@@ -1,5 +1,5 @@
 const { expectRevert } = require('@openzeppelin/test-helpers');
-const { getSlot, ImplementationSlot } = require('../helpers/erc1967');
+const { getSlot, ImplementationSlot } = require('../../helpers/erc1967');
 
 const { expect } = require('chai');
 
@@ -32,8 +32,7 @@ module.exports = function shouldBehaveLikeProxy (createProxy, proxyAdminAddress,
       expect(await dummy.value()).to.be.bignumber.equal(value.toString());
     });
 
-    it.skip('has expected balance' +
-      '(https://github.com/nervosnetwork/godwoken-web3/issues/310)', async function () {
+    it('has expected balance', async function () {
       expect(await web3.eth.getBalance(this.proxy)).to.be.bignumber.equal(balance.toString());
     });
   };
@@ -53,7 +52,8 @@ module.exports = function shouldBehaveLikeProxy (createProxy, proxyAdminAddress,
       assertProxyInitialization({ value: 0, balance: 0 });
     });
 
-    describe('when sending some balance', function () {
+    describe.skip('when sending some balance' +
+      '(https://github.com/nervosnetwork/godwoken-web3/issues/310)', function () {
       const value = 10e5;
 
       beforeEach('creating proxy', async function () {

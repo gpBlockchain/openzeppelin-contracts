@@ -691,7 +691,8 @@ function shouldBehaveLikeERC1155 ([minter, firstTokenHolder, secondTokenHolder, 
           );
         });
 
-        it('reverts', async function () {
+        it.skip('reverts' +
+          '(https://github.com/nervosnetwork/godwoken-web3/issues/281)', async function () {
           await expectRevert(
             this.token.safeBatchTransferFrom(
               multiTokenHolder, this.receiver.address,

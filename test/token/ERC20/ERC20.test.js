@@ -11,7 +11,7 @@ const {
 const ERC20Mock = artifacts.require('ERC20Mock');
 const ERC20DecimalsMock = artifacts.require('ERC20DecimalsMock');
 
-contract('ERC20', function (accounts) {
+contract('ERC20Test', function (accounts) {
   const [ initialHolder, recipient, anotherAccount ] = accounts;
 
   const name = 'My Token';

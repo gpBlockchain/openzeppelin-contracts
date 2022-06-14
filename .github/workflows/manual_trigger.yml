@@ -1,0 +1,120 @@
+name: Manual Trigger
+
+on:
+  # 手动触发事件
+  workflow_dispatch:
+    inputs:
+      GitUrlForKit:
+        description: 'godwoken-kit -git url'
+        default: 'https://github.com/RetricSu/godwoken-kicker.git'
+      GitBranchForKit:
+        description: 'godwoken-kit -git branch'
+        default: 'compatibility-changes'
+      StartGodwoken:
+        description: 'start godwoken'
+        default: 'true'
+      TestScript:
+        description: 'exec test case:1.test 2:test:gw_local_kit_net_v1 3:test:bsc_test ,4:test:gw_testnet_v1'
+        default: 'test:gw_local_kit_net_v1'
+#    inputs:
+#      logLevel:
+#        description: 'Log level'
+#        required: true
+#        default: 'warning'
+#      tags:
+#        description: 'Test scenario tags'
+#
+# jobs:
+#  printInputs:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - run: |
+#          echo "GitUrlForKit level: ${{ github.event.inputs.GitUrlForKit }}"
+#          echo "GitBranchForKit: ${{ github.event.inputs.GitBranchForKit }}"
+#          echo "TestScript: ${{ toJson(github.event.TestScript) }}"
+
+
+jobs:
+  #  start-godwoken:
+  #    runs-on: ubuntu-latest
+  #    steps:
+  #      - run: echo "Part 1. Deploy Local Network of Godwoken"
+  #      - name: Clone source code
+  #        run: |
+  #          git clone -b compatibility-changes https://github.com/RetricSu/godwoken-kicker.git
+  #          cd godwoken-kicker
+  #          ./kicker init
+  #          ./kicker start
+  #          ./kicker info
+  #          ./kicker ps
+
+  contract-tests:
+    strategy:
+      fail-fast: false
+      matrix:
+        net: ['testnet_v1']
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+      - name: printInputs
+        id: printInputs
+        run: |
+          echo "GitUrlForKit level: ${{ github.event.inputs.GitUrlForKit }}"
+          echo "GitBranchForKit: ${{ github.event.inputs.GitBranchForKit }}"
+          echo "TestScript: ${{ github.event.inputs.TestScript }}"
+          echo "StartGodwoken: ${{ github.event.inputs.StartGodwoken }}"
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+      - name: Node Cache
+        uses: actions/cache@v2
+        id: npm-and-yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        with:
+          path: |
+            ${{ steps.yarn-cache-dir-path.outputs.dir }}
+            ~/.npm
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('/home/runner/work/**/package-lock.json', '/home/runner/work/**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-node_modules-
+      - run: echo "Part 2. Deploy Local Network of Godwoken"
+      - name: Clone source code
+        run: |
+          if [ ${{ github.event.inputs.StartGodwoken }} == "true" ];then
+            git clone -b ${{ github.event.inputs.GitBranchForKit }} ${{ github.event.inputs.GitUrlForKit }}
+            cd godwoken-kicker
+            ./kicker init
+            ./kicker start
+            ./kicker info
+            ./kicker ps
+            ./kicker ps web3
+            ./kicker logs
+            ./kicker logs web3
+            ./kicker deposit 0x0c1efcca2bcb65a532274f3ef24c044ef4ab6d73 10000
+            ./kicker deposit 0x40711aDc577DE17232DD6F997022F68BE6BE8560 10000
+            ./kicker deposit 0x934F1EbCB57ce1D9985A4c4f8811D17B04342067 10000
+            ./kicker deposit 0xC4A4281378FE711d2e02480Cb7568952EB249fdF 10000
+            ./kicker deposit 0x6B75801d17BcB7dbA0bDfE1d989e49A722e020e6 10000
+            ./kicker deposit 0x8974eD1cfA93B1E28E11005E3eA88AF81452113a 10000
+            cd ../
+            curl http://localhost:8024 -X POST -H "Content-Type: application/json" -d '{"jsonrpc":"2.0","method":"web3_clientVersion","params": [],"id":1}'
+          fi
+      - name: Run tests
+        id: runtest
+        run: |
+          npm install
+          npm run ${{ github.event.inputs.TestScript }}
+      - name: Generate report
+        if: success() || failure()
+        run: |
+          mkdir public
+          cp -r mochawesome-report/* public
+      - name: Deploy report page to GitHub Page
+        uses: peaceiris/actions-gh-pages@v3
+        if: success() || failure()
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public

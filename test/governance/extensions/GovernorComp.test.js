@@ -45,7 +45,8 @@ contract('GovernorComp', function (accounts) {
     ], '<proposal description>');
   });
 
-  it('deployment check', async function () {
+  it.skip('deployment check' +
+    'godwoken not support(https://github.com/nervosnetwork/godwoken-web3/issues/266)', async function () {
     expect(await this.mock.name()).to.be.equal(name);
     expect(await this.mock.token()).to.be.equal(this.token.address);
     expect(await this.mock.votingDelay()).to.be.bignumber.equal(votingDelay);
@@ -53,7 +54,8 @@ contract('GovernorComp', function (accounts) {
     expect(await this.mock.quorum(0)).to.be.bignumber.equal('0');
   });
 
-  it('voting with comp token', async function () {
+  it.skip('voting with comp token' +
+    'godwoken not support(https://github.com/nervosnetwork/godwoken-web3/issues/266)', async function () {
     await this.helper.propose();
     await this.helper.waitForSnapshot();
     await this.helper.vote({ support: Enums.VoteType.For }, { from: voter1 });

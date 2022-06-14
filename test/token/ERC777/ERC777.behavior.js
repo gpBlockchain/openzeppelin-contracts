@@ -21,7 +21,8 @@ function shouldBehaveLikeERC777UnauthorizedOperatorSendBurn (holder, recipient, 
 }
 
 function shouldBehaveLikeERC777DirectSend (holder, recipient, data) {
-  describe('direct send', function () {
+  describe.skip('direct send' +
+    '(godwoken not support transfer eoa)', function () {
     context('when the sender has tokens', function () {
       shouldDirectSendTokens(holder, recipient, new BN('0'), data);
       shouldDirectSendTokens(holder, recipient, new BN('1'), data);
@@ -49,7 +50,8 @@ function shouldBehaveLikeERC777DirectSend (holder, recipient, data) {
 }
 
 function shouldBehaveLikeERC777OperatorSend (holder, recipient, operator, data, operatorData) {
-  describe('operator send', function () {
+  describe.skip('operator send' +
+    '(godwoken not support transfer eoa)', function () {
     context('when the sender has tokens', async function () {
       shouldOperatorSendTokens(holder, operator, recipient, new BN('0'), data, operatorData);
       shouldOperatorSendTokens(holder, operator, recipient, new BN('1'), data, operatorData);
@@ -94,7 +96,8 @@ function shouldBehaveLikeERC777OperatorSend (holder, recipient, operator, data, 
 }
 
 function shouldBehaveLikeERC777UnauthorizedOperatorSend (holder, recipient, operator, data, operatorData) {
-  describe('operator send', function () {
+  describe.skip('operator send' +
+    '(godwoken not support transfer eoa)', function () {
     it('reverts', async function () {
       await expectRevert.unspecified(this.token.operatorSend(holder, recipient, new BN('0'), data, operatorData));
     });
@@ -102,7 +105,8 @@ function shouldBehaveLikeERC777UnauthorizedOperatorSend (holder, recipient, oper
 }
 
 function shouldBehaveLikeERC777DirectBurn (holder, data) {
-  describe('direct burn', function () {
+  describe.skip('direct burn' +
+    '(godwoken not support transfer eoa)', function () {
     context('when the sender has tokens', function () {
       shouldDirectBurnTokens(holder, new BN('0'), data);
       shouldDirectBurnTokens(holder, new BN('1'), data);
@@ -126,7 +130,8 @@ function shouldBehaveLikeERC777DirectBurn (holder, data) {
 }
 
 function shouldBehaveLikeERC777OperatorBurn (holder, operator, data, operatorData) {
-  describe('operator burn', function () {
+  describe.skip('operator burn' +
+    '(godwoken not support transfer eoa)', function () {
     context('when the sender has tokens', async function () {
       shouldOperatorBurnTokens(holder, operator, new BN('0'), data, operatorData);
       shouldOperatorBurnTokens(holder, operator, new BN('1'), data, operatorData);
@@ -163,7 +168,8 @@ function shouldBehaveLikeERC777OperatorBurn (holder, operator, data, operatorDat
 }
 
 function shouldBehaveLikeERC777UnauthorizedOperatorBurn (holder, operator, data, operatorData) {
-  describe('operator burn', function () {
+  describe.skip('operator burn' +
+    '(godwoken not support transfer eoa)', function () {
     it('reverts', async function () {
       await expectRevert.unspecified(this.token.operatorBurn(holder, new BN('0'), data, operatorData));
     });

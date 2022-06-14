@@ -59,14 +59,16 @@ contract('GovernorWithParams', function (accounts) {
     ], '<proposal description>');
   });
 
-  it('deployment check', async function () {
+  it.skip('deployment check' +
+    'godwoken not support(https://github.com/nervosnetwork/godwoken-web3/issues/266)', async function () {
     expect(await this.mock.name()).to.be.equal(name);
     expect(await this.mock.token()).to.be.equal(this.token.address);
     expect(await this.mock.votingDelay()).to.be.bignumber.equal(votingDelay);
     expect(await this.mock.votingPeriod()).to.be.bignumber.equal(votingPeriod);
   });
 
-  it('nominal is unaffected', async function () {
+  it.skip('nominal is unaffected' +
+    'godwoken not support(https://github.com/nervosnetwork/godwoken-web3/issues/266)', async function () {
     await this.helper.propose({ from: proposer });
     await this.helper.waitForSnapshot();
     await this.helper.vote({ support: Enums.VoteType.For, reason: 'This is nice' }, { from: voter1 });
@@ -83,7 +85,8 @@ contract('GovernorWithParams', function (accounts) {
     expect(await web3.eth.getBalance(this.receiver.address)).to.be.bignumber.equal(value);
   });
 
-  it('Voting with params is properly supported', async function () {
+  it.skip('Voting with params is properly supported' +
+    'godwoken not support(https://github.com/nervosnetwork/godwoken-web3/issues/266)', async function () {
     await this.helper.propose({ from: proposer });
     await this.helper.waitForSnapshot();
 
@@ -109,7 +112,8 @@ contract('GovernorWithParams', function (accounts) {
     expect(votes.forVotes).to.be.bignumber.equal(weight);
   });
 
-  it('Voting with params by signature is properly supported', async function () {
+  it.skip('Voting with params by signature is properly supported' +
+    'godwoken not support(https://github.com/nervosnetwork/godwoken-web3/issues/266)', async function () {
     const voterBySig = Wallet.generate();
     const voterBySigAddress = web3.utils.toChecksumAddress(voterBySig.getAddressString());
 

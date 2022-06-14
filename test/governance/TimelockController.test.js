@@ -148,7 +148,8 @@ contract('TimelockController', function (accounts) {
           );
         });
 
-        it('proposer can schedule', async function () {
+        it.skip('proposer can schedule' +
+          'godwoken support  Instant finality(https://github.com/cryptape/godwoken-internal/issues/190)', async function () {
           const receipt = await this.mock.schedule(
             this.operation.target,
             this.operation.value,
@@ -305,7 +306,7 @@ contract('TimelockController', function (accounts) {
               await time.increaseTo(timestamp);
             });
 
-            it('executor can reveal', async function () {
+            it.skip('executor can reveal(godwoken not support time.increaseTo )', async function () {
               const receipt = await this.mock.execute(
                 this.operation.target,
                 this.operation.value,
@@ -323,7 +324,7 @@ contract('TimelockController', function (accounts) {
               });
             });
 
-            it('prevent non-executor from revealing', async function () {
+            it.skip('prevent non-executor from revealing(godwoken not support time.increaseTo )', async function () {
               await expectRevert(
                 this.mock.execute(
                   this.operation.target,
@@ -353,7 +354,8 @@ contract('TimelockController', function (accounts) {
           );
         });
 
-        it('proposer can schedule', async function () {
+        it.skip('proposer can schedule' +
+          '', async function () {
           const receipt = await this.mock.scheduleBatch(
             this.operation.targets,
             this.operation.values,
@@ -715,7 +717,7 @@ contract('TimelockController', function (accounts) {
       );
     });
 
-    it('timelock scheduled maintenance', async function () {
+    it.skip('timelock scheduled maintenance(godwoken not support time.increase)', async function () {
       const newDelay = time.duration.hours(6);
       const operation = genOperation(
         this.mock.address,

@@ -1,12 +1,12 @@
-const { balance, ether, expectRevert, send, expectEvent } = require('@openzeppelin/test-helpers');
-const { expect } = require('chai');
+const {balance, ether, expectRevert, send, expectEvent} = require('@openzeppelin/test-helpers');
+const {expect} = require('chai');
 
 const AddressImpl = artifacts.require('AddressImpl');
 const EtherReceiver = artifacts.require('EtherReceiverMock');
 const CallReceiverMock = artifacts.require('CallReceiverMock');
 
 contract('Address', function (accounts) {
-  const [ recipient, other ] = accounts;
+  const [recipient, other] = accounts;
 
   beforeEach(async function () {
     this.mock = await AddressImpl.new();
@@ -106,7 +106,7 @@ contract('Address', function (accounts) {
 
         const receipt = await this.mock.functionCall(this.contractRecipient.address, abiEncodedCall);
 
-        expectEvent(receipt, 'CallReturnValue', { data: '0x1234' });
+        expectEvent(receipt, 'CallReturnValue', {data: '0x1234'});
         await expectEvent.inTransaction(receipt.tx, CallReceiverMock, 'MockFunctionCalled');
       });
 
@@ -177,7 +177,7 @@ contract('Address', function (accounts) {
 
     context('with non-contract receiver', function () {
       it('reverts when address is not a contract', async function () {
-        const [ recipient ] = accounts;
+        const [recipient] = accounts;
         const abiEncodedCall = web3.eth.abi.encodeFunctionCall({
           name: 'mockFunction',
           type: 'function',
@@ -203,7 +203,7 @@ contract('Address', function (accounts) {
 
         const receipt = await this.mock.functionCallWithValue(this.contractRecipient.address, abiEncodedCall, 0);
 
-        expectEvent(receipt, 'CallReturnValue', { data: '0x1234' });
+        expectEvent(receipt, 'CallReturnValue', {data: '0x1234'});
         await expectEvent.inTransaction(receipt.tx, CallReceiverMock, 'MockFunctionCalled');
       });
     });
@@ -241,7 +241,7 @@ contract('Address', function (accounts) {
 
         expect(await tracker.delta()).to.be.bignumber.equal(amount);
 
-        expectEvent(receipt, 'CallReturnValue', { data: '0x1234' });
+        expectEvent(receipt, 'CallReturnValue', {data: '0x1234'});
         await expectEvent.inTransaction(receipt.tx, CallReceiverMock, 'MockFunctionCalled');
       });
 
@@ -257,12 +257,12 @@ contract('Address', function (accounts) {
 
         expect(await balance.current(this.mock.address)).to.be.bignumber.equal('0');
         const receipt = await this.mock.functionCallWithValue(
-          this.contractRecipient.address, abiEncodedCall, amount, { from: other, value: amount },
+          this.contractRecipient.address, abiEncodedCall, amount, {from: other, value: amount},
         );
 
         expect(await tracker.delta()).to.be.bignumber.equal(amount);
 
-        expectEvent(receipt, 'CallReturnValue', { data: '0x1234' });
+        expectEvent(receipt, 'CallReturnValue', {data: '0x1234'});
         await expectEvent.inTransaction(receipt.tx, CallReceiverMock, 'MockFunctionCalled');
       });
 
@@ -297,7 +297,7 @@ contract('Address', function (accounts) {
 
       const receipt = await this.mock.functionStaticCall(this.contractRecipient.address, abiEncodedCall);
 
-      expectEvent(receipt, 'CallReturnValue', { data: '0x1234' });
+      expectEvent(receipt, 'CallReturnValue', {data: '0x1234'});
     });
 
     it.skip('reverts on a non-static function' +
@@ -329,7 +329,7 @@ contract('Address', function (accounts) {
 
     it.skip('reverts when address is not a contract' +
       '(https://github.com/nervosnetwork/godwoken-web3/issues/281)', async function () {
-      const [ recipient ] = accounts;
+      const [recipient] = accounts;
       const abiEncodedCall = web3.eth.abi.encodeFunctionCall({
         name: 'mockFunction',
         type: 'function',
@@ -356,7 +356,7 @@ contract('Address', function (accounts) {
 
       const receipt = await this.mock.functionDelegateCall(this.contractRecipient.address, abiEncodedCall);
 
-      expectEvent(receipt, 'CallReturnValue', { data: '0x1234' });
+      expectEvent(receipt, 'CallReturnValue', {data: '0x1234'});
 
       expect(await this.mock.sharedAnswer()).to.equal('42');
     });
@@ -376,7 +376,7 @@ contract('Address', function (accounts) {
 
     it.skip('reverts when address is not a contract' +
       '(https://github.com/nervosnetwork/godwoken-web3/issues/281)', async function () {
-      const [ recipient ] = accounts;
+      const [recipient] = accounts;
       const abiEncodedCall = web3.eth.abi.encodeFunctionCall({
         name: 'mockFunction',
         type: 'function',

@@ -8,7 +8,7 @@ const NotAnERC20 = artifacts.require('CallReceiverMock');
 const ERC20Mock = artifacts.require('ERC20DecimalsMock');
 const ERC20WrapperMock = artifacts.require('ERC20WrapperMock');
 
-contract('ERC20', function (accounts) {
+contract('ERC20Wrapper', function (accounts) {
   const [ initialHolder, recipient, anotherAccount ] = accounts;
 
   const name = 'My Token';

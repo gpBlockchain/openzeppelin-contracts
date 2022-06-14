@@ -91,7 +91,8 @@ function shouldBehaveLikeERC721 (errorPrefix, owner, newOwner, approved, another
           expect(await this.token.ownerOf(tokenId)).to.be.equal(this.toWhom);
         });
 
-        it('emits a Transfer event', async function () {
+        it('try12 emits a Transfer event', async function () {
+          console.log('logs:', logs);
           expectEvent.inLogs(logs, 'Transfer', { from: owner, to: this.toWhom, tokenId: tokenId });
         });
 

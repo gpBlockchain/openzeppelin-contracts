@@ -51,7 +51,6 @@ contract('BeaconProxy', function (accounts) {
 
         const dummy = new DummyImplementation(this.proxy.address);
         expect(await dummy.value()).to.bignumber.eq(value);
-
         expect(await web3.eth.getBalance(this.proxy.address)).to.bignumber.eq(balance);
       };
     });
@@ -76,7 +75,8 @@ contract('BeaconProxy', function (accounts) {
       await this.assertInitialized({ value, balance: '0' });
     });
 
-    it('payable initialization', async function () {
+    it.skip('payable initialization' +
+      '(https://github.com/nervosnetwork/godwoken-web3/issues/310)', async function () {
       const value = '55';
       const data = this.implementationV0.contract.methods
         .initializePayableWithValue(value)
@@ -103,7 +103,6 @@ contract('BeaconProxy', function (accounts) {
       .initializeNonPayableWithValue(value)
       .encodeABI();
     const proxy = await BeaconProxy.new(beacon.address, data);
-
     const dummy = new DummyImplementation(proxy.address);
 
     // test initial values

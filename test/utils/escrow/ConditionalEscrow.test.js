@@ -19,7 +19,7 @@ contract('ConditionalEscrow', function (accounts) {
   });
 
   context('when withdrawal is disallowed', function () {
-    const amount = ether('23');
+    const amount = ether('0.00000000023');
 
     beforeEach(async function () {
       await this.escrow.setAllowed(payee, false);
