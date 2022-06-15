@@ -21,14 +21,14 @@ contract('UUPSUpgradeable', function (accounts) {
     this.instance = await UUPSUpgradeableMock.at(address);
   });
 
-  it.skip('upgrade to upgradeable implementation' +
+  it('upgrade to upgradeable implementation' +
     '(https://github.com/nervosnetwork/godwoken-web3/issues/301)', async function () {
     const { receipt } = await this.instance.upgradeTo(this.implUpgradeOk.address);
     expect(receipt.logs.filter(({ event }) => event === 'Upgraded').length).to.be.equal(1);
     expectEvent(receipt, 'Upgraded', { implementation: this.implUpgradeOk.address });
   });
 
-  it.skip('upgrade to upgradeable implementation with call' +
+  it('upgrade to upgradeable implementation with call' +
     '(https://github.com/nervosnetwork/godwoken-web3/issues/301)', async function () {
     expect(await this.instance.current()).to.be.bignumber.equal('0');
 
@@ -42,7 +42,7 @@ contract('UUPSUpgradeable', function (accounts) {
     expect(await this.instance.current()).to.be.bignumber.equal('1');
   });
 
-  it.skip('upgrade to and unsafe upgradeable implementation' +
+  it('upgrade to and unsafe upgradeable implementation' +
     '(https://github.com/nervosnetwork/godwoken-web3/issues/301)', async function () {
     const { receipt } = await this.instance.upgradeTo(this.implUpgradeUnsafe.address);
     expectEvent(receipt, 'Upgraded', { implementation: this.implUpgradeUnsafe.address });
@@ -66,7 +66,7 @@ contract('UUPSUpgradeable', function (accounts) {
     );
   });
 
-  it.skip('can upgrade from legacy implementations' +
+  it('can upgrade from legacy implementations' +
     '(https://github.com/nervosnetwork/godwoken-web3/issues/301)', async function () {
     const legacyImpl = await UUPSUpgradeableLegacyMock.new();
     const legacyInstance = await ERC1967Proxy.new(legacyImpl.address, '0x')

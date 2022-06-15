@@ -26,7 +26,7 @@ contract('DoubleEndedQueue', function (accounts) {
       expect(await getContent(this.deque)).to.have.ordered.members([]);
     });
 
-    it.skip('reverts on accesses' +
+    it('reverts on accesses' +
       'error CustomError()', async function () {
       await expectRevertCustomError(this.deque.popBack(), 'Empty()');
       await expectRevertCustomError(this.deque.popFront(), 'Empty()');
@@ -51,7 +51,7 @@ contract('DoubleEndedQueue', function (accounts) {
       expect(await getContent(this.deque)).to.have.ordered.members(this.content);
     });
 
-    it.skip('out of bounds access' +
+    it('out of bounds access' +
       'error CustomError()', async function () {
       await expectRevertCustomError(this.deque.at(this.content.length), 'OutOfBounds()');
     });

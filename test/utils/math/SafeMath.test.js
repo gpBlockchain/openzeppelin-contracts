@@ -157,7 +157,7 @@ contract('SafeMath', function (accounts) {
         });
       });
 
-      it.skip('reverts with a 0 divisor' +
+      it('reverts with a 0 divisor' +
         '(data-out-of-bound)', async function () {
         const a = new BN('5678');
         const b = new BN('0');

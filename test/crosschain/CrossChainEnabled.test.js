@@ -27,7 +27,7 @@ function shouldBehaveLikeReceiver (sender = randomAddress()) {
     );
   });
 
-  it.skip('should grant access to cross-chain call from the owner' +
+  it('should grant access to cross-chain call from the owner' +
     '(Polygon-Child)(https://github.com/nervosnetwork/godwoken-web3/issues/301)', async function () {
     await this.bridge.call(
       await this.receiver.owner(),

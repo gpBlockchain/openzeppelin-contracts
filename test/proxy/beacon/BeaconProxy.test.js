@@ -75,7 +75,7 @@ contract('BeaconProxy', function (accounts) {
       await this.assertInitialized({ value, balance: '0' });
     });
 
-    it.skip('payable initialization' +
+    it('payable initialization' +
       '(https://github.com/nervosnetwork/godwoken-web3/issues/310)', async function () {
       const value = '55';
       const data = this.implementationV0.contract.methods

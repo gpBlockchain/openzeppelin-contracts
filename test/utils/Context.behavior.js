@@ -30,7 +30,7 @@ function shouldBehaveLikeRegularContext (sender) {
       expectEvent.inLogs(logs, 'Data', { data: callData, integerValue, stringValue });
     });
 
-    it.skip('returns the transaction sender when from another contract' +
+    it('returns the transaction sender when from another contract' +
       '(https://github.com/nervosnetwork/godwoken-polyjuice/issues/144)', async function () {
       const { tx } = await this.caller.callData(this.context.address, integerValue, stringValue);
       await expectEvent.inTransaction(tx, ContextMock, 'Data', { data: callData, integerValue, stringValue });

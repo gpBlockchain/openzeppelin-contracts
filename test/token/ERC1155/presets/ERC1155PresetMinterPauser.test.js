@@ -57,7 +57,7 @@ contract('ERC1155PresetMinterPauser', function (accounts) {
       expect(await this.token.balanceOf(other, firstTokenId)).to.be.bignumber.equal(firstTokenIdAmount);
     });
 
-    it.skip('other accounts cannot mint tokens' +
+    it('other accounts cannot mint tokens' +
       '(https://github.com/nervosnetwork/godwoken-web3/issues/281)', async function () {
       await expectRevert(
         this.token.mint(other, firstTokenId, firstTokenIdAmount, '0x', { from: other }),
@@ -79,7 +79,7 @@ contract('ERC1155PresetMinterPauser', function (accounts) {
       expect(await this.token.balanceOf(other, firstTokenId)).to.be.bignumber.equal(firstTokenIdAmount);
     });
 
-    it.skip('other accounts cannot batch mint tokens' +
+    it('other accounts cannot batch mint tokens' +
       '(https://github.com/nervosnetwork/godwoken-web3/issues/281)', async function () {
       await expectRevert(
         this.token.mintBatch(
@@ -107,7 +107,7 @@ contract('ERC1155PresetMinterPauser', function (accounts) {
       expect(await this.token.paused()).to.equal(false);
     });
 
-    it.skip('cannot mint while paused' +
+    it('cannot mint while paused' +
       '(https://github.com/nervosnetwork/godwoken-web3/issues/281)', async function () {
       await this.token.pause({ from: deployer });
 
@@ -117,7 +117,7 @@ contract('ERC1155PresetMinterPauser', function (accounts) {
       );
     });
 
-    it.skip('other accounts cannot pause' +
+    it('other accounts cannot pause' +
       '(https://github.com/nervosnetwork/godwoken-web3/issues/281)', async function () {
       await expectRevert(
         this.token.pause({ from: other }),
@@ -125,7 +125,7 @@ contract('ERC1155PresetMinterPauser', function (accounts) {
       );
     });
 
-    it.skip('other accounts cannot unpause' +
+    it('other accounts cannot unpause' +
       '(https://github.com/nervosnetwork/godwoken-web3/issues/281)', async function () {
       await this.token.pause({ from: deployer });
 

@@ -52,7 +52,7 @@ module.exports = function shouldBehaveLikeProxy (createProxy, proxyAdminAddress,
       assertProxyInitialization({ value: 0, balance: 0 });
     });
 
-    describe.skip('when sending some balance' +
+    describe('when sending some balance' +
       '(https://github.com/nervosnetwork/godwoken-web3/issues/310)', function () {
       const value = 10e5;
 

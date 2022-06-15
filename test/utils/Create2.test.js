@@ -48,7 +48,7 @@ contract('Create2', function (accounts) {
       expect(ERC1820Implementer.bytecode).to.include((await web3.eth.getCode(offChainComputed)).slice(2));
     });
 
-    it.skip('deploys a ERC20Mock with correct balances(https://github.com/nervosnetwork/godwoken-polyjuice/issues/143)', async function () {
+    it('deploys a ERC20Mock with correct balances(https://github.com/nervosnetwork/godwoken-polyjuice/issues/143)', async function () {
       const offChainComputed = computeCreate2Address(saltHex, constructorByteCode, this.factory.address);
 
       await this.factory.deploy(0, saltHex, constructorByteCode);
@@ -57,7 +57,7 @@ contract('Create2', function (accounts) {
       expect(await erc20.balanceOf(deployerAccount)).to.be.bignumber.equal(new BN(100));
     });
 
-    it.skip('deploys a contract with funds deposited in the factory(https://github.com/nervosnetwork/godwoken-polyjuice/issues/143)', async function () {
+    it('deploys a contract with funds deposited in the factory(https://github.com/nervosnetwork/godwoken-polyjuice/issues/143)', async function () {
       const deposit = ether('2');
       await send.ether(deployerAccount, this.factory.address, deposit);
       expect(await balance.current(this.factory.address)).to.be.bignumber.equal(deposit);

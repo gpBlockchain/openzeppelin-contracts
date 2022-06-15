@@ -183,7 +183,7 @@ function shouldBehaveLikeERC1155 ([minter, firstTokenHolder, secondTokenHolder, 
         expect(await this.token.isApprovedForAll(multiTokenHolder, proxy)).to.be.equal(false);
       });
 
-      it.skip('reverts if attempting to approve self as an operator' +
+      it('reverts if attempting to approve self as an operator' +
         '(https://github.com/nervosnetwork/godwoken-web3/issues/281)', async function () {
         await expectRevert(
           this.token.setApprovalForAll(multiTokenHolder, true, { from: multiTokenHolder }),
@@ -208,7 +208,7 @@ function shouldBehaveLikeERC1155 ([minter, firstTokenHolder, secondTokenHolder, 
         );
       });
 
-      it.skip('reverts when transferring more than balance' +
+      it('reverts when transferring more than balance' +
         '(https://github.com/nervosnetwork/godwoken-web3/issues/281)', async function () {
         await expectRevert(
           this.token.safeTransferFrom(
@@ -223,7 +223,7 @@ function shouldBehaveLikeERC1155 ([minter, firstTokenHolder, secondTokenHolder, 
         );
       });
 
-      it.skip('reverts when transferring to zero address' +
+      it('reverts when transferring to zero address' +
         '(https://github.com/nervosnetwork/godwoken-web3/issues/281)', async function () {
         await expectRevert(
           this.token.safeTransferFrom(
@@ -291,7 +291,7 @@ function shouldBehaveLikeERC1155 ([minter, firstTokenHolder, secondTokenHolder, 
             await this.token.setApprovalForAll(proxy, false, { from: multiTokenHolder });
           });
 
-          it.skip('reverts' +
+          it('reverts' +
             '(https://github.com/nervosnetwork/godwoken-web3/issues/281)', async function () {
             await expectRevert(
               this.token.safeTransferFrom(multiTokenHolder, recipient, firstTokenId, firstAmount, '0x', {
@@ -411,7 +411,7 @@ function shouldBehaveLikeERC1155 ([minter, firstTokenHolder, secondTokenHolder, 
           );
         });
 
-        it.skip('reverts' +
+        it('reverts' +
           '(https://github.com/nervosnetwork/godwoken-web3/issues/281)', async function () {
           await expectRevert(
             this.token.safeTransferFrom(multiTokenHolder, this.receiver.address, firstTokenId, firstAmount, '0x', {
@@ -430,7 +430,7 @@ function shouldBehaveLikeERC1155 ([minter, firstTokenHolder, secondTokenHolder, 
           );
         });
 
-        it.skip('reverts' +
+        it('reverts' +
           '(https://github.com/nervosnetwork/godwoken-web3/issues/281)', async function () {
           await expectRevert(
             this.token.safeTransferFrom(multiTokenHolder, this.receiver.address, firstTokenId, firstAmount, '0x', {
@@ -469,7 +469,7 @@ function shouldBehaveLikeERC1155 ([minter, firstTokenHolder, secondTokenHolder, 
         );
       });
 
-      it.skip('reverts when transferring amount more than any of balances' +
+      it('reverts when transferring amount more than any of balances' +
         '(https://github.com/nervosnetwork/godwoken-web3/issues/281)', async function () {
         await expectRevert(
           this.token.safeBatchTransferFrom(
@@ -482,7 +482,7 @@ function shouldBehaveLikeERC1155 ([minter, firstTokenHolder, secondTokenHolder, 
         );
       });
 
-      it.skip('reverts when ids array length doesn\'t match amounts array length' +
+      it('reverts when ids array length doesn\'t match amounts array length' +
         '(https://github.com/nervosnetwork/godwoken-web3/issues/281)', async function () {
         await expectRevert(
           this.token.safeBatchTransferFrom(
@@ -505,7 +505,7 @@ function shouldBehaveLikeERC1155 ([minter, firstTokenHolder, secondTokenHolder, 
         );
       });
 
-      it.skip('reverts when transferring to zero address' +
+      it('reverts when transferring to zero address' +
         '(https://github.com/nervosnetwork/godwoken-web3/issues/281)', async function () {
         await expectRevert(
           this.token.safeBatchTransferFrom(
@@ -570,7 +570,7 @@ function shouldBehaveLikeERC1155 ([minter, firstTokenHolder, secondTokenHolder, 
             await this.token.setApprovalForAll(proxy, false, { from: multiTokenHolder });
           });
 
-          it.skip('reverts' +
+          it('reverts' +
             '(https://github.com/nervosnetwork/godwoken-web3/issues/281)', async function () {
             await expectRevert(
               this.token.safeBatchTransferFrom(
@@ -691,7 +691,7 @@ function shouldBehaveLikeERC1155 ([minter, firstTokenHolder, secondTokenHolder, 
           );
         });
 
-        it.skip('reverts' +
+        it('reverts' +
           '(https://github.com/nervosnetwork/godwoken-web3/issues/281)', async function () {
           await expectRevert(
             this.token.safeBatchTransferFrom(
@@ -713,7 +713,7 @@ function shouldBehaveLikeERC1155 ([minter, firstTokenHolder, secondTokenHolder, 
           );
         });
 
-        it.skip('reverts' +
+        it('reverts' +
           '(https://github.com/nervosnetwork/godwoken-web3/issues/281)', async function () {
           await expectRevert(
             this.token.safeBatchTransferFrom(
