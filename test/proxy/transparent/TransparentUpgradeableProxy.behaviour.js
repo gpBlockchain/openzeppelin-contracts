@@ -97,7 +97,7 @@ module.exports = function shouldBehaveLikeTransparentUpgradeableProxy (createPro
         this.behavior = await InitializableMock.new();
       });
 
-      describe.skip('when the call does not fail' +
+      describe('when the call does not fail' +
         '(https://github.com/nervosnetwork/godwoken-web3/issues/301)', function () {
         const initializeData = new InitializableMock('').contract.methods['initializeWithX(uint256)'](42).encodeABI();
 
@@ -129,7 +129,7 @@ module.exports = function shouldBehaveLikeTransparentUpgradeableProxy (createPro
             expect(balance.toString()).to.be.bignumber.equal(value.toString());
           });
 
-          it.skip('uses the storage of the proxy', async function () {
+          it('uses the storage of the proxy', async function () {
             // storage layout should look as follows:
             //  - 0: Initializable storage
             //  - 1-50: Initailizable reserved storage (50 slots)
@@ -366,7 +366,7 @@ module.exports = function shouldBehaveLikeTransparentUpgradeableProxy (createPro
       expect(res.toString()).to.eq('42');
     });
 
-    it.skip('should remove function' +
+    it('should remove function' +
       '(https://github.com/nervosnetwork/godwoken-web3/issues/301)', async () => {
       const instance2 = await Implementation2.new();
       const proxy = await createProxy(instance2.address, proxyAdminAddress, initializeData, { from: proxyAdminOwner });
@@ -398,7 +398,7 @@ module.exports = function shouldBehaveLikeTransparentUpgradeableProxy (createPro
       expect(res.toString()).to.eq('50');
     });
 
-    it.skip('should add fallback function(https://github.com/nervosnetwork/godwoken-web3/issues/266)', async () => {
+    it('should add fallback function(https://github.com/nervosnetwork/godwoken-web3/issues/266)', async () => {
       const initializeData = Buffer.from('');
       const instance1 = await Implementation1.new();
       const proxy = await createProxy(instance1.address, proxyAdminAddress, initializeData, { from: proxyAdminOwner });

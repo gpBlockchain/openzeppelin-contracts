@@ -27,7 +27,7 @@ contract('ERC1155Pausable', function (accounts) {
       await this.token.pause();
     });
 
-    it.skip('reverts when trying to safeTransferFrom from holder' +
+    it('reverts when trying to safeTransferFrom from holder' +
       '(https://github.com/nervosnetwork/godwoken-web3/issues/281)', async function () {
       await expectRevert(
         this.token.safeTransferFrom(holder, receiver, firstTokenId, firstTokenAmount, '0x', { from: holder }),
@@ -35,7 +35,7 @@ contract('ERC1155Pausable', function (accounts) {
       );
     });
 
-    it.skip('reverts when trying to safeTransferFrom from operator' +
+    it('reverts when trying to safeTransferFrom from operator' +
       '(https://github.com/nervosnetwork/godwoken-web3/issues/281)', async function () {
       await expectRevert(
         this.token.safeTransferFrom(holder, receiver, firstTokenId, firstTokenAmount, '0x', { from: operator }),
@@ -43,7 +43,7 @@ contract('ERC1155Pausable', function (accounts) {
       );
     });
 
-    it.skip('reverts when trying to safeBatchTransferFrom from holder' +
+    it('reverts when trying to safeBatchTransferFrom from holder' +
       '(https://github.com/nervosnetwork/godwoken-web3/issues/281)', async function () {
       await expectRevert(
         this.token.safeBatchTransferFrom(holder, receiver, [firstTokenId], [firstTokenAmount], '0x', { from: holder }),
@@ -51,7 +51,7 @@ contract('ERC1155Pausable', function (accounts) {
       );
     });
 
-    it.skip('reverts when trying to safeBatchTransferFrom from operator' +
+    it('reverts when trying to safeBatchTransferFrom from operator' +
       '(https://github.com/nervosnetwork/godwoken-web3/issues/281)', async function () {
       await expectRevert(
         this.token.safeBatchTransferFrom(
@@ -61,7 +61,7 @@ contract('ERC1155Pausable', function (accounts) {
       );
     });
 
-    it.skip('reverts when trying to mint' +
+    it('reverts when trying to mint' +
       '(https://github.com/nervosnetwork/godwoken-web3/issues/281)', async function () {
       await expectRevert(
         this.token.mint(holder, secondTokenId, secondTokenAmount, '0x'),
@@ -69,7 +69,7 @@ contract('ERC1155Pausable', function (accounts) {
       );
     });
 
-    it.skip('reverts when trying to mintBatch' +
+    it('reverts when trying to mintBatch' +
       '(https://github.com/nervosnetwork/godwoken-web3/issues/281)', async function () {
       await expectRevert(
         this.token.mintBatch(holder, [secondTokenId], [secondTokenAmount], '0x'),
@@ -77,7 +77,7 @@ contract('ERC1155Pausable', function (accounts) {
       );
     });
 
-    it.skip('reverts when trying to burn' +
+    it('reverts when trying to burn' +
       '(https://github.com/nervosnetwork/godwoken-web3/issues/281)', async function () {
       await expectRevert(
         this.token.burn(holder, firstTokenId, firstTokenAmount),
@@ -85,7 +85,7 @@ contract('ERC1155Pausable', function (accounts) {
       );
     });
 
-    it.skip('reverts when trying to burnBatch' +
+    it('reverts when trying to burnBatch' +
       '(https://github.com/nervosnetwork/godwoken-web3/issues/281)', async function () {
       await expectRevert(
         this.token.burnBatch(holder, [firstTokenId], [firstTokenAmount]),

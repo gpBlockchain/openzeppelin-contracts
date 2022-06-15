@@ -183,7 +183,7 @@ function shouldBehaveLikeERC721 (errorPrefix, owner, newOwner, approved, another
         });
 
         context('when the address of the previous owner is incorrect', function () {
-          it.skip('reverts' +
+          it('reverts' +
             '(https://github.com/nervosnetwork/godwoken-web3/issues/281)', async function () {
             await expectRevert(
               transferFunction.call(this, other, other, tokenId, { from: owner }),
@@ -193,7 +193,7 @@ function shouldBehaveLikeERC721 (errorPrefix, owner, newOwner, approved, another
         });
 
         context('when the sender is not authorized for the token id', function () {
-          it.skip('reverts' +
+          it('reverts' +
             '(https://github.com/nervosnetwork/godwoken-web3/issues/281)', async function () {
             await expectRevert(
               transferFunction.call(this, owner, other, tokenId, { from: other }),
@@ -203,7 +203,7 @@ function shouldBehaveLikeERC721 (errorPrefix, owner, newOwner, approved, another
         });
 
         context('when the given token ID does not exist', function () {
-          it.skip('reverts' +
+          it('reverts' +
             '(https://github.com/nervosnetwork/godwoken-web3/issues/281)', async function () {
             await expectRevert(
               transferFunction.call(this, owner, other, nonExistentTokenId, { from: owner }),
@@ -213,7 +213,7 @@ function shouldBehaveLikeERC721 (errorPrefix, owner, newOwner, approved, another
         });
 
         context('when the address to transfer the token to is the zero address', function () {
-          it.skip('reverts' +
+          it('reverts' +
             '(https://github.com/nervosnetwork/godwoken-web3/issues/281)', async function () {
             await expectRevert(
               transferFunction.call(this, owner, ZERO_ADDRESS, tokenId, { from: owner }),
@@ -406,7 +406,7 @@ function shouldBehaveLikeERC721 (errorPrefix, owner, newOwner, approved, another
         });
 
         context('to a receiver contract that panics', function () {
-          it.skip('reverts' +
+          it('reverts' +
             '(data out-of-bounds)', async function () {
             const revertingReceiver = await ERC721ReceiverMock.new(RECEIVER_MAGIC_VALUE, Error.Panic);
             await expectRevert.unspecified(

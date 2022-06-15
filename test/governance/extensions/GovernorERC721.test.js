@@ -50,7 +50,7 @@ contract('GovernorERC721Mock', function (accounts) {
     ], '<proposal description>');
   });
 
-  it.skip('deployment check' +
+  it('deployment check' +
     'godwoken not support(https://github.com/nervosnetwork/godwoken-web3/issues/266)', async function () {
     expect(await this.mock.name()).to.be.equal(name);
     expect(await this.mock.token()).to.be.equal(this.token.address);
@@ -59,7 +59,7 @@ contract('GovernorERC721Mock', function (accounts) {
     expect(await this.mock.quorum(0)).to.be.bignumber.equal('0');
   });
 
-  it.skip('voting with ERC721 token' +
+  it('voting with ERC721 token' +
     'godwoken not support(https://github.com/nervosnetwork/godwoken-web3/issues/266)', async function () {
     await this.helper.propose();
     await this.helper.waitForSnapshot();

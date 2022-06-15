@@ -29,7 +29,7 @@ contract('ERC1155', function (accounts) {
     const data = '0x12345678';
 
     describe('_mint', function () {
-      it.skip('reverts with a zero destination address' +
+      it('reverts with a zero destination address' +
         '(https://github.com/nervosnetwork/godwoken-web3/issues/281)', async function () {
         await expectRevert(
           this.token.mint(ZERO_ADDRESS, tokenId, mintAmount, data),
@@ -59,7 +59,7 @@ contract('ERC1155', function (accounts) {
     });
 
     describe('_mintBatch', function () {
-      it.skip('reverts with a zero destination address' +
+      it('reverts with a zero destination address' +
         '(https://github.com/nervosnetwork/godwoken-web3/issues/281)', async function () {
         await expectRevert(
           this.token.mintBatch(ZERO_ADDRESS, tokenBatchIds, mintAmounts, data),
@@ -67,7 +67,7 @@ contract('ERC1155', function (accounts) {
         );
       });
 
-      it.skip('reverts if length of inputs do not match' +
+      it('reverts if length of inputs do not match' +
         '(https://github.com/nervosnetwork/godwoken-web3/issues/281)', async function () {
         await expectRevert(
           this.token.mintBatch(tokenBatchHolder, tokenBatchIds, mintAmounts.slice(1), data),
@@ -113,7 +113,7 @@ contract('ERC1155', function (accounts) {
     });
 
     describe('_burn', function () {
-      it.skip('reverts when burning the zero account\'s tokens' +
+      it('reverts when burning the zero account\'s tokens' +
         '(https://github.com/nervosnetwork/godwoken-web3/issues/281)', async function () {
         await expectRevert(
           this.token.burn(ZERO_ADDRESS, tokenId, mintAmount),
@@ -121,7 +121,7 @@ contract('ERC1155', function (accounts) {
         );
       });
 
-      it.skip('reverts when burning a non-existent token id' +
+      it('reverts when burning a non-existent token id' +
         '(https://github.com/nervosnetwork/godwoken-web3/issues/281)', async function () {
         await expectRevert(
           this.token.burn(tokenHolder, tokenId, mintAmount),
@@ -129,7 +129,7 @@ contract('ERC1155', function (accounts) {
         );
       });
 
-      it.skip('reverts when burning more than available tokens' +
+      it('reverts when burning more than available tokens' +
         '(https://github.com/nervosnetwork/godwoken-web3/issues/281)', async function () {
         await this.token.mint(
           tokenHolder,
@@ -176,7 +176,7 @@ contract('ERC1155', function (accounts) {
     });
 
     describe('_burnBatch', function () {
-      it.skip('reverts when burning the zero account\'s tokens' +
+      it('reverts when burning the zero account\'s tokens' +
         '(https://github.com/nervosnetwork/godwoken-web3/issues/281)', async function () {
         await expectRevert(
           this.token.burnBatch(ZERO_ADDRESS, tokenBatchIds, burnAmounts),
@@ -184,7 +184,7 @@ contract('ERC1155', function (accounts) {
         );
       });
 
-      it.skip('reverts if length of inputs do not match' +
+      it('reverts if length of inputs do not match' +
         '(https://github.com/nervosnetwork/godwoken-web3/issues/281)', async function () {
         await expectRevert(
           this.token.burnBatch(tokenBatchHolder, tokenBatchIds, burnAmounts.slice(1)),
@@ -197,7 +197,7 @@ contract('ERC1155', function (accounts) {
         );
       });
 
-      it.skip('reverts when burning a non-existent token id' +
+      it('reverts when burning a non-existent token id' +
         '(https://github.com/nervosnetwork/godwoken-web3/issues/281)', async function () {
         await expectRevert(
           this.token.burnBatch(tokenBatchHolder, tokenBatchIds, burnAmounts),

@@ -67,7 +67,7 @@ contract('SignedSafeMath', function (accounts) {
       expect(result).to.be.bignumber.equal(a.sub(b));
     });
 
-    it.skip('reverts on positive subtraction overflow' +
+    it('reverts on positive subtraction overflow' +
       '(data out-of-bounds (length=15, offset=32, code=BUFFER_OVERRUN, version=abi/5.0.7))', async function () {
       const a = MAX_INT256;
       const b = new BN('-1');
@@ -75,7 +75,7 @@ contract('SignedSafeMath', function (accounts) {
       await expectRevert.unspecified(this.safeMath.sub(a, b));
     });
 
-    it.skip('reverts on negative subtraction overflow' +
+    it('reverts on negative subtraction overflow' +
       '(data out-of-bounds (length=15, offset=32, code=BUFFER_OVERRUN, version=abi/5.0.7))', async function () {
       const a = MIN_INT256;
       const b = new BN('1');
@@ -99,7 +99,7 @@ contract('SignedSafeMath', function (accounts) {
       await testCommutative(this.safeMath.mul, a, b, '0');
     });
 
-    it.skip('reverts on multiplication overflow, positive operands' +
+    it('reverts on multiplication overflow, positive operands' +
       '(data out-of-bounds (length=15, offset=32, code=BUFFER_OVERRUN, version=abi/5.0.7))', async function () {
       const a = MAX_INT256;
       const b = new BN('2');
@@ -107,7 +107,7 @@ contract('SignedSafeMath', function (accounts) {
       await testFailsCommutative(this.safeMath.mul, a, b);
     });
 
-    it.skip('reverts when minimum integer is multiplied by -1' +
+    it('reverts when minimum integer is multiplied by -1' +
       '(data out-of-bounds (length=15, offset=32, code=BUFFER_OVERRUN, version=abi/5.0.7))', async function () {
       const a = MIN_INT256;
       const b = new BN('-1');
@@ -139,7 +139,7 @@ contract('SignedSafeMath', function (accounts) {
       expect(await this.safeMath.div(a, b)).to.be.bignumber.equal('1');
     });
 
-    it.skip('reverts on division by zero' +
+    it('reverts on division by zero' +
       '(data out-of-bounds (length=15, offset=32, code=BUFFER_OVERRUN, version=abi/5.0.7))', async function () {
       const a = new BN('-5678');
       const b = new BN('0');
@@ -147,7 +147,7 @@ contract('SignedSafeMath', function (accounts) {
       await expectRevert.unspecified(this.safeMath.div(a, b));
     });
 
-    it.skip('reverts on overflow, negative second' +
+    it('reverts on overflow, negative second' +
       '(data out-of-bounds (length=15, offset=32, code=BUFFER_OVERRUN, version=abi/5.0.7))', async function () {
       const a = new BN(MIN_INT256);
       const b = new BN('-1');

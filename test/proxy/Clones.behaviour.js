@@ -76,7 +76,7 @@ module.exports = function shouldBehaveLikeClone (createClone) {
         });
       });
 
-      describe.skip('when sending some balance' +
+      describe('when sending some balance' +
         '(https://github.com/nervosnetwork/godwoken-web3/issues/301)', function () {
         const value = 10;
 

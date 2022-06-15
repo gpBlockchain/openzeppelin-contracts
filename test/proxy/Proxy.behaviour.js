@@ -32,7 +32,7 @@ module.exports = function shouldBehaveLikeProxy (createProxy, proxyAdminAddress,
       expect(await dummy.value()).to.be.bignumber.equal(value.toString());
     });
 
-    it.skip('has expected balance' +
+    it('has expected balance' +
       '(https://github.com/nervosnetwork/godwoken-web3/issues/310)', async function () {
       expect(await web3.eth.getBalance(this.proxy)).to.be.bignumber.equal(balance.toString());
     });
