@@ -13,7 +13,7 @@ const Governor = artifacts.require('GovernorTimelockControlMock');
 const CallReceiver = artifacts.require('CallReceiverMock');
 
 contract('GovernorTimelockControl', function (accounts) {
-  const [ owner, voter1, voter2, voter3, voter4, other ] = accounts;
+  const [owner, voter1, voter2, voter3, voter4, other] = accounts;
 
   const TIMELOCK_ADMIN_ROLE = web3.utils.soliditySha3('TIMELOCK_ADMIN_ROLE');
   const PROPOSER_ROLE = web3.utils.soliditySha3('PROPOSER_ROLE');
@@ -40,8 +40,7 @@ contract('GovernorTimelockControl', function (accounts) {
       votingDelay,
       votingPeriod,
       this.timelock.address,
-      0,
-    );
+      0);
     this.receiver = await CallReceiver.new();
 
     this.helper = new GovernorHelper(this.mock);
@@ -90,12 +89,14 @@ contract('GovernorTimelockControl', function (accounts) {
   // ]);
 
   it.skip('doesn\'t accept ether transfers' +
-    'godwoken not support data:0x(https://github.com/nervosnetwork/godwoken-web3/issues/266)', async function () {
+    '(https://github.com/nervosnetwork/godwoken-web3/issues/266)' +
+    '(https://github.com/nervosnetwork/godwoken-web3/issues/232)', async function () {
     await expectRevert.unspecified(web3.eth.sendTransaction({from: owner, to: this.mock.address, value: 1}));
   });
 
   it.skip('post deployment check' +
-    'godwoken not support data:0x(https://github.com/nervosnetwork/godwoken-web3/issues/266)', async function () {
+    '(https://github.com/nervosnetwork/godwoken-web3/issues/266)' +
+    '(https://github.com/nervosnetwork/godwoken-web3/issues/232)', async function () {
     expect(await this.mock.name()).to.be.equal(name);
     expect(await this.mock.token()).to.be.equal(this.token.address);
     expect(await this.mock.votingDelay()).to.be.bignumber.equal(votingDelay);
@@ -105,8 +106,7 @@ contract('GovernorTimelockControl', function (accounts) {
     expect(await this.mock.timelock()).to.be.equal(this.timelock.address);
   });
 
-  it.skip('nominal' +
-    '(https://github.com/nervosnetwork/godwoken-web3/issues/305)', async function () {
+  it.skip('nominal(time.advanceBlockTo)', async function () {
     await this.helper.propose();
     await this.helper.waitForSnapshot();
     await this.helper.vote({support: Enums.VoteType.For}, {from: voter1});
@@ -127,7 +127,7 @@ contract('GovernorTimelockControl', function (accounts) {
   });
 
   describe.skip('should revert' +
-    'godwoken not support(https://github.com/nervosnetwork/godwoken-web3/issues/266)', function () {
+    '(time.advanceBlockTo)', function () {
     describe('on queue', function () {
       it('if already queued', async function () {
         await this.helper.propose();
@@ -193,7 +193,7 @@ contract('GovernorTimelockControl', function (accounts) {
     });
   });
 
-  describe('cancel', function () {
+  describe.skip('cancel(time.advanceBlockTo)', function () {
     it('cancel before queue prevents scheduling', async function () {
       await this.helper.propose();
       await this.helper.waitForSnapshot();
@@ -246,7 +246,8 @@ contract('GovernorTimelockControl', function (accounts) {
     });
   });
 
-  describe('onlyGovernance', function () {
+  describe.skip('onlyGovernance' +
+    '(https://github.com/nervosnetwork/godwoken-web3/issues/232)', function () {
     describe('relay', function () {
       beforeEach(async function () {
         await this.token.mint(this.mock.address, 1);
@@ -263,7 +264,7 @@ contract('GovernorTimelockControl', function (accounts) {
         );
       });
 
-      it('can be executed through governance', async function () {
+      it.skip('can be executed through governance(time.advanceBlockTo)', async function () {
         this.helper.setProposal([
           {
             target: this.mock.address,
@@ -297,7 +298,7 @@ contract('GovernorTimelockControl', function (accounts) {
         );
       });
 
-      it('protected against other proposers', async function () {
+      it.skip('protected against other proposers(time.advanceBlockTo)', async function () {
         await this.timelock.schedule(
           this.mock.address,
           web3.utils.toWei('0'),
@@ -336,7 +337,7 @@ contract('GovernorTimelockControl', function (accounts) {
         );
       });
 
-      it('can be executed through governance to', async function () {
+      it.skip('can be executed through governance to(time.advanceBlockTo)', async function () {
         this.helper.setProposal([
           {
             target: this.mock.address,
@@ -363,7 +364,8 @@ contract('GovernorTimelockControl', function (accounts) {
     });
   });
 
-  it('clear queue of pending governor calls', async function () {
+  it.skip('clear queue of pending governor calls(time.advanceBlockTo)' +
+    '(https://github.com/nervosnetwork/godwoken-web3/issues/232)', async function () {
     this.helper.setProposal([
       {
         target: this.mock.address,

@@ -62,8 +62,8 @@ contract('GovernorERC721Mock', function (accounts) {
     expect(await this.mock.quorum(0)).to.be.bignumber.equal('0');
   });
 
-  it('voting with ERC721 token' +
-    'godwoken not support(https://github.com/nervosnetwork/godwoken-web3/issues/266)', async function () {
+  it.skip('voting with ERC721 token' +
+    'godwoken not support(time.advanceBlockTo)', async function () {
     await this.helper.propose();
     await this.helper.waitForSnapshot();
 
