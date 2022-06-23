@@ -32,8 +32,11 @@ contract('GovernorERC721Mock', function (accounts) {
     this.helper = new GovernorHelper(this.mock);
 
     await web3.eth.sendTransaction({ from: owner, to: this.mock.address, value });
-
-    await Promise.all([ NFT0, NFT1, NFT2, NFT3, NFT4 ].map(tokenId => this.token.mint(owner, tokenId)));
+    await this.token.mint(owner, NFT0);
+    await this.token.mint(owner, NFT1);
+    await this.token.mint(owner, NFT2);
+    await this.token.mint(owner, NFT3);
+    await this.token.mint(owner, NFT4);
     await this.helper.delegate({ token: this.token, to: voter1, tokenId: NFT0 }, { from: owner });
     await this.helper.delegate({ token: this.token, to: voter2, tokenId: NFT1 }, { from: owner });
     await this.helper.delegate({ token: this.token, to: voter2, tokenId: NFT2 }, { from: owner });
