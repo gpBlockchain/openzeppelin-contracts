@@ -144,7 +144,7 @@ contract('Address', function (accounts) {
         }, []);
 
         await expectRevert(
-          this.mock.functionCall(this.contractRecipient.address, abiEncodedCall, { gas: '100000' }),
+          this.mock.functionCall(this.contractRecipient.address, abiEncodedCall),
           'Address: low-level call failed',
         );
       });
