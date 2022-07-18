@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - compatiblillity-axon
+      - master
   pull_request:
 
 
