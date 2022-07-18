@@ -42,7 +42,7 @@ jobs:
         id: runtest
         run: |
           npm install
-          npm run test:axon_local
+          npm run test:axonLocal
       - name: check axon status
         if: success() || failure()
         run: |
