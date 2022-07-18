@@ -364,7 +364,7 @@ contract('ERC20VotesComp', function (accounts) {
     });
 
     describe('numCheckpoints', function () {
-      it('aaaa returns the number of checkpoints for a delegate' +
+      it.skip('returns the number of checkpoints for a delegate' +
         'godwoken not support time.advanceBlock()', async function () {
         console.log('transfer(recipient, \'100\', { from: holder });',recipient,holder)
         await this.token.transfer(recipient, '100', { from: holder }); //give an account a few tokens for readability
@@ -396,7 +396,7 @@ contract('ERC20VotesComp', function (accounts) {
         expect(await this.token.getPriorVotes(other1, t4.receipt.blockNumber)).to.be.bignumber.equal('100');
       });
 
-      it('does not add more than one checkpoint in a block', async function () {
+      it.skip('does not add more than one checkpoint in a block(not support evm_setAutomine)', async function () {
         await this.token.transfer(recipient, '100', { from: holder });
         expect(await this.token.numCheckpoints(other1)).to.be.bignumber.equal('0');
 

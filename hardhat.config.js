@@ -20,7 +20,7 @@ const PRIVATE_KEY2 = '8792b6c208c4a7ef59b043c534b34aa95763fb995751bdb0a757b7a1b6
 // eth_address: 0x934F1EbCB57ce1D9985A4c4f8811D17B04342067
 const PRIVATE_KEY3 = '31227350280dbcb27d2976c900faf62ce92c2ad0b982541cc837fb9236b3b415';
 
-  // eth_address: 0xC4A4281378FE711d2e02480Cb7568952EB249fdF
+// eth_address: 0xC4A4281378FE711d2e02480Cb7568952EB249fdF
 const PRIVATE_KEY4 = '9269aa582ad09351383b32e7981f84f6efa5f94a9322813f63894caff74166a0';
 
 // eth_address: 0x6B75801d17BcB7dbA0bDfE1d989e49A722e020e6
@@ -106,6 +106,17 @@ module.exports = {
       blockGasLimit: 10000000,
       allowUnlimitedContractSize: !withOptimizations,
     },
+    axonLocal: {
+      url: 'http://localhost:8000',
+      accounts: {
+        mnemonic: 'test test test test test test test test test test test junk',
+        path: 'm/44\'/60\'/0\'/0',
+        initialIndex: 0,
+        count: 20,
+        passphrase: '',
+      },
+    },
+
     gwTestnetV1: {
       url: 'https://godwoken-testnet-web3-v1-rpc.ckbapp.dev',
       // gasMultiplier: 2,
@@ -119,6 +130,31 @@ module.exports = {
         `0x${PRIVATE_KEY8}`,
         `0x${PRIVATE_KEY9}`,
         `0x${PRIVATE_KEY10}`],
+    },
+    //https://godwoken-alphanet-v1.ckbapp.dev
+    gwAlphanetTestnetV1: {
+      url: `https://godwoken-alphanet-v1.ckbapp.dev`,
+      // gasMultiplier: 3,
+      accounts: [`0x${PRIVATE_KEY}`,
+        `0x${PRIVATE_KEY2}`,
+        `0x${PRIVATE_KEY3}`,
+        `0x${PRIVATE_KEY4}`,
+        `0x${PRIVATE_KEY5}`,
+        `0x${PRIVATE_KEY6}`,
+        `0x${PRIVATE_KEY7}`,
+        `0x${PRIVATE_KEY8}`,
+        `0x${PRIVATE_KEY9}`,
+        `0x${PRIVATE_KEY10}`],
+    },
+    localEth: {
+      url: 'http://127.0.0.1:8545',
+      accounts: {
+        mnemonic: "test test test test test test test test test test test junk",
+        path: "m/44'/60'/0'/0",
+        initialIndex: 0,
+        count: 20,
+        passphrase: "",
+      },
     },
     gwBetanetTestnetV1: {
       url: `https://godwoken-betanet-v1.ckbapp.dev`,
@@ -136,7 +172,21 @@ module.exports = {
     },
     gwTestNetLocalV1: {
       url: 'http://127.0.0.1:8024',
-      gasMultiplier: 2,
+      gasMultiplier: 3,
+      accounts: [`0x${PRIVATE_KEY}`,
+        `0x${PRIVATE_KEY2}`,
+        `0x${PRIVATE_KEY3}`,
+        `0x${PRIVATE_KEY4}`,
+        `0x${PRIVATE_KEY5}`,
+        `0x${PRIVATE_KEY6}`,
+        `0x${PRIVATE_KEY7}`,
+        `0x${PRIVATE_KEY8}`,
+        `0x${PRIVATE_KEY9}`,
+        `0x${PRIVATE_KEY10}`],
+    },
+    axonTestNetLocalV1: {
+      url: 'http://127.0.0.1:8000',
+      gasMultiplier: 3,
       accounts: [`0x${PRIVATE_KEY}`,
         `0x${PRIVATE_KEY2}`,
         `0x${PRIVATE_KEY3}`,
@@ -171,7 +221,7 @@ module.exports = {
         `0x${PRIVATE_KEY5}`],
     },
   },
-  // defaultNetwork: 'gwTestnetV1',
+  defaultNetwork: 'axonLocal',
 
   gasReporter: {
     currency: 'USD',
@@ -181,7 +231,7 @@ module.exports = {
   mocha: {
     timeout: 100000,
     reporter: 'mochawesome',
-  }
+  },
 
 };
 

@@ -61,7 +61,10 @@ contract('RefundEscrow', function (accounts) {
     context.skip('closed state' +
       'godwoken time out', function () {
       beforeEach(async function () {
-        await Promise.all(refundees.map(refundee => this.escrow.deposit(refundee, { from: owner, value: amount })));
+
+        await this.escrow.deposit(refundees[0], { from: owner, value: amount });
+        await this.escrow.deposit(refundees[1], { from: owner, value: amount });
+        // await Promise.all(refundees.map(refundee => this.escrow.deposit(refundee, { from: owner, value: amount })));
 
         await this.escrow.close({ from: owner });
       });
@@ -108,8 +111,9 @@ contract('RefundEscrow', function (accounts) {
 
     context('refund state', function () {
       beforeEach(async function () {
-        await Promise.all(refundees.map(refundee => this.escrow.deposit(refundee, { from: owner, value: amount })));
-
+        // await Promise.all(refundees.map(refundee => this.escrow.deposit(refundee, { from: owner, value: amount })));
+        await this.escrow.deposit(refundees[0], { from: owner, value: amount });
+        await this.escrow.deposit(refundees[1], { from: owner, value: amount });
         await this.escrow.enableRefunds({ from: owner });
       });
 

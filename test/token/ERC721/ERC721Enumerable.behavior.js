@@ -79,9 +79,6 @@ function shouldBehaveLikeERC721 (errorPrefix, owner, newOwner, approved, another
       let logs = null;
 
       beforeEach(async function () {
-        console.log('approved:', approved);
-        console.log('tokenId:', tokenId);
-        console.log('owner:', owner);
         await this.token.approve(approved, tokenId, { from: owner });
         await this.token.setApprovalForAll(operator, true, { from: owner });
       });
@@ -92,7 +89,6 @@ function shouldBehaveLikeERC721 (errorPrefix, owner, newOwner, approved, another
         });
 
         it('try12 emits a Transfer event', async function () {
-          console.log('logs:', logs);
           expectEvent.inLogs(logs, 'Transfer', { from: owner, to: this.toWhom, tokenId: tokenId });
         });
 
