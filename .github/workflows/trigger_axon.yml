@@ -1,4 +1,4 @@
-name: ci_axon
+name: trigger_axon
 
 on:
   # 手动触发事件
