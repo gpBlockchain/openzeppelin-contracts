@@ -10,25 +10,25 @@ contract('PullPayment', function (accounts) {
   const amount = ether('17');
 
   beforeEach(async function () {
-    this.contract = await PullPaymentMock.new({value: amount, gasLimit: '0xffffff'});
+    this.contract = await PullPaymentMock.new({value: amount});
     console.log('contract address:', this.contract.address);
   });
 
   describe('payments', function () {
     it('can record an async payment correctly', async function () {
-      await this.contract.callTransfer(payee1, 100, {from: payer, gasLimit: '0xffffff'});
+      await this.contract.callTransfer(payee1, 100, {from: payer});
       expect(await this.contract.payments(payee1)).to.be.bignumber.equal('100');
     });
 
     it('can add multiple balances on one account', async function () {
-      await this.contract.callTransfer(payee1, 200, {from: payer, gasLimit: '0xffffff'});
-      await this.contract.callTransfer(payee1, 300, {from: payer, gasLimit: '0xffffff'});
+      await this.contract.callTransfer(payee1, 200, {from: payer});
+      await this.contract.callTransfer(payee1, 300, {from: payer});
       expect(await this.contract.payments(payee1)).to.be.bignumber.equal('500');
     });
 
     it('can add balances on multiple accounts', async function () {
-      await this.contract.callTransfer(payee1, 200, {from: payer, gasLimit: '0xffffff'});
-      await this.contract.callTransfer(payee2, 300, {from: payer, gasLimit: '0xffffff'});
+      await this.contract.callTransfer(payee1, 200, {from: payer});
+      await this.contract.callTransfer(payee2, 300, {from: payer});
 
       expect(await this.contract.payments(payee1)).to.be.bignumber.equal('200');
 
