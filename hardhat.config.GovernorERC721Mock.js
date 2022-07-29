@@ -75,6 +75,7 @@ module.exports = {
     },
     testRpc: {
       url: process.env.TEST_RPC,
+      gasMultiplier:2,
       // gas:10000000,
       accounts: {
         mnemonic: process.env.MNEMONIC_STR,
