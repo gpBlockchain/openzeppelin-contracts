@@ -73,16 +73,6 @@ module.exports = {
       blockGasLimit: 10000000,
       allowUnlimitedContractSize: !withOptimizations,
     },
-    axonLocal: {
-      url: 'http://localhost:8000',
-      accounts: {
-        mnemonic: 'test test test test test test test test test test test junk',
-        path: 'm/44\'/60\'/0\'/0',
-        initialIndex: 0,
-        count: 20,
-        passphrase: '',
-      },
-    },
     testRpc: {
       url: process.env.TEST_RPC,
       // gas:10000000,
@@ -95,10 +85,12 @@ module.exports = {
       },
     },
   },
-  // defaultNetwork: 'axonLocal',
   mocha: {
     timeout: 100000,
     reporter: 'mochawesome',
+    reporterOptions: {
+      reportFilename: '[status]-init-report',
+    },
   },
 
 };

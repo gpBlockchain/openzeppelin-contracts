@@ -7,7 +7,7 @@ const PullPaymentMock = artifacts.require('PullPaymentMock');
 contract('PullPayment', function (accounts) {
   const [payer, payee1, payee2] = accounts;
 
-  const amount = ether('17');
+  const amount = ether('0.01');
 
   beforeEach(async function () {
     this.contract = await PullPaymentMock.new({value: amount});
