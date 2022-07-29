@@ -67,6 +67,10 @@ jobs:
         if: success() || failure()
         run: |
           npm run test:pipeline5-18  
+      - name: Run test 519
+        if: success() || failure()
+        run: |
+          npm run test:pipeline5-19            
       - name: check axon status
         if: success() || failure()
         run: |
