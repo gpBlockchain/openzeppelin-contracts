@@ -1,4 +1,4 @@
-name: trigger_axon_56_510
+name: trigger_axon_pipeline5-6-to-10
 
 on:
   # 手动触发事件
@@ -58,23 +58,23 @@ jobs:
       - name: Run test 56
         if: success() || failure()
         run: |
-          npm run test:run56      
+          npm run test:pipeline5-6      
       - name: Run test 57
         if: success() || failure()
         run: |
-          npm run test:run57      
+          npm run test:pipeline5-7      
       - name: Run test 58
         if: success() || failure()
         run: |
-          npm run test:run58  
+          npm run test:pipeline5-8  
       - name: Run test 59
         if: success() || failure()
         run: |
-          npm run test:run59
+          npm run test:pipeline5-9
       - name: Run test 510
         if: success() || failure()
         run: |
-          npm run test:run510
+          npm run test:pipeline5-10
       - name: check axon status
         if: success() || failure()
         run: |

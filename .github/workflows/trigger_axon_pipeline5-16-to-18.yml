@@ -1,4 +1,4 @@
-name: trigger_axon_51_55
+name: trigger_axon_pipeline5-16-to-18
 
 on:
   # 手动触发事件
@@ -50,31 +50,23 @@ jobs:
              rm -rf ./devtools/chain/data
              ./target/release/axon --config=./devtools/chain/config.toml --genesis=./devtools/chain/genesis_single_node.json > chain.log 2>&1 &
           fi
-      - name: Run prepare 
+      - name: Run prepare
         id: runtest
         run: |
           npm install
           npm run test:init
-      - name: Run test 51
+      - name: Run test 516
         if: success() || failure()
         run: |
-          npm run test:run51      
-      - name: Run test 52
+          npm run test:pipeline5-16      
+      - name: Run test 517
         if: success() || failure()
         run: |
-          npm run test:run52      
-      - name: Run test 53
+          npm run test:pipeline5-17      
+      - name: Run test 518
         if: success() || failure()
         run: |
-          npm run test:run53  
-      - name: Run test 54
-        if: success() || failure()
-        run: |
-          npm run test:run54
-      - name: Run test 55
-        if: success() || failure()
-        run: |
-          npm run test:run55
+          npm run test:pipeline5-18  
       - name: check axon status
         if: success() || failure()
         run: |
