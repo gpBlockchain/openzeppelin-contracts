@@ -58,10 +58,9 @@ contract('Create2', function (accounts) {
     });
 
     it('deploys a contract with funds deposited in the factory(https://github.com/nervosnetwork/godwoken-polyjuice/issues/143)', async function () {
-      const deposit = ether('2');
+      const deposit = ether('0.02');
       await send.ether(deployerAccount, this.factory.address, deposit);
       expect(await balance.current(this.factory.address)).to.be.bignumber.equal(deposit);
-
       const onChainComputed = await this.factory
         .computeAddressWithDeployer(saltHex, web3.utils.keccak256(constructorByteCode), this.factory.address);
 
