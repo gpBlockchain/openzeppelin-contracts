@@ -209,7 +209,7 @@ contract('Address', function (accounts) {
     });
 
     context('with non-zero value', function () {
-      const amount = ether('1.2');
+      const amount = ether('0.012');
 
       it('reverts if insufficient sender balance' +
         '(https://github.com/nervosnetwork/godwoken-web3/issues/281)', async function () {
