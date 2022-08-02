@@ -1,0 +1,93 @@
+name: axon_pipeline5-1-to-5-and-12-15
+
+on:
+  push:
+    branches:
+      - compatiblillity-axon
+  pull_request:
+
+
+
+jobs:
+  contract-tests:
+    strategy:
+      fail-fast: false
+      matrix:
+        net: ['testnet_v1']
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+      - name: Node Cache
+        uses: actions/cache@v2
+        id: npm-and-yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        with:
+          path: |
+            ${{ steps.yarn-cache-dir-path.outputs.dir }}
+            ~/.npm
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('/home/runner/work/**/package-lock.json', '/home/runner/work/**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-node_modules-
+      - name: Deploy Local Network of Axon
+        run: |
+           git clone https://github.com/nervosnetwork/axon.git
+           cd axon
+           cargo build --release
+           rm -rf ./devtools/chain/data
+           ./target/release/axon --config=./devtools/chain/config.toml --genesis=./devtools/chain/genesis_single_node.json > chain.log 2>&1 &
+      - name: Run prepare 
+        id: runtest
+        run: |
+          npm install
+          npm run test:init
+      - name: Run test 51
+        if: success() || failure()
+        run: |
+          npm run test:pipeline5-1      
+      - name: Run test 52
+        if: success() || failure()
+        run: |
+          npm run test:pipeline5-2      
+      - name: Run test 53
+        if: success() || failure()
+        run: |
+          npm run test:pipeline5-3  
+      - name: Run test 54
+        if: success() || failure()
+        run: |
+          npm run test:pipeline5-4
+      - name: Run test 55
+        if: success() || failure()
+        run: |
+          npm run test:pipeline5-5
+      - name: Run test 512
+        if: success() || failure()
+        run: |
+          npm run test:pipeline5-12      
+      - name: Run test 513
+        if: success() || failure()
+        run: |
+          npm run test:pipeline5-13  
+      - name: Run test 514
+        if: success() || failure()
+        run: |
+          npm run test:pipeline5-14
+      - name: Run test 515
+        if: success() || failure()
+        run: |
+          npm run test:pipeline5-15
+      - name: check axon status
+        if: success() || failure()
+        run: |
+          curl http://localhost:8000 -X POST -H "Content-Type: application/json" -d '{"jsonrpc":"2.0","method":"web3_clientVersion","params": [],"id":1}'
+      - name: Publish reports
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: jfoa-build-reports-${{ runner.os }}
+          path: mochawesome-report/
