@@ -75,8 +75,8 @@ module.exports = {
     },
     testRpc: {
       url: process.env.TEST_RPC,
-      gasMultiplier:2,
       // gas:10000000,
+      gasMultiplier:2,
       accounts: {
         mnemonic: process.env.MNEMONIC_STR,
         path: 'm/44\'/60\'/0\'/0',
@@ -89,6 +89,7 @@ module.exports = {
   mocha: {
     timeout: 100000,
     reporter: 'mochawesome',
+    retries:2,
     reporterOptions: {
       reportFilename: '[status]-GovernorERC721Mock-report',
     },
