@@ -89,6 +89,7 @@ module.exports = {
   mocha: {
     timeout: 100000,
     reporter: 'mochawesome',
+    retries:2,
     reporterOptions: {
       reportFilename: '[status]-PullPayment-report',
     },
