@@ -3,7 +3,7 @@ const { Wallet } = require('ethers');
 
 const PRIVATE_KEY = process.env.PRIVATE_KEY;
 const TRANSFER_ETHER = process.env.TRANSFER_ETHER;
-
+const CKB_PROXY_ADDRESS = process.env.CKB_PROXY_ADDRESS;
 describe('Transfer', function () {
   this.timeout(1000000);
   it('initAccount', async () => {
@@ -28,7 +28,7 @@ async function initWithParam () {
   const signer = await ethers.getSigners();
   const waitList = [];
   for (let i = 0; i < signer.length; i++) {
-    const aa = transfer(PRIVATE_KEY, i, signer[i].address, ethers.utils.parseEther(TRANSFER_ETHER));
+    const aa = transferCkb(PRIVATE_KEY, i, signer[i].address, ethers.utils.parseEther(TRANSFER_ETHER));
     waitList.push(aa);
     await sleep(100);
   }
@@ -43,6 +43,40 @@ async function sleep (ms) {
     setTimeout(resolve, ms);
   });
 }
+
+async function transferCkb(privateKey, idx, to, value){
+
+  const provider = (await ethers.getSigners())[idx].provider;
+  if (provider === undefined) {
+    console.log('provider is undefined');
+    return;
+  }
+
+  if ((await provider.getBalance(to)).sub(value).gte('0')) {
+    return;
+  }
+  // init sign
+  let wt = new Wallet(privateKey);
+  wt = await wt.connect(provider);
+  
+  //get payload
+  let ckbProxyContract = await ethers.getContractAt("IERC20", CKB_PROXY_ADDRESS);
+  console.log('------')
+  while (true) {
+    try {
+      let populateTx  = await ckbProxyContract.populateTransaction.transfer(to,value);
+      const tx = await wt.sendTransaction({
+        to: populateTx.to,
+        data:populateTx.data
+      });
+      await tx.wait();
+      if ((await provider.getBalance(to)).sub(value).gte('0')) {
+        return;
+      }
+    } catch (e) {
+      console.log('e:', e.toString());
+    }
+  }}
 
 async function transfer (privateKey, idx, to, value) {
   const provider = (await ethers.getSigners())[idx].provider;
