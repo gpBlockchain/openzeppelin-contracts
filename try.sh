@@ -7,10 +7,10 @@ else
     cmd="$@"
 fi
 i=0; 
-while [[ "$i" -lt "${try}" ]]; do
+while [ "$i" -lt "${try}" ]; do
   $cmd
   ret=$?
-  if [[ ${ret} == 0 ]];then
+  if [ ${ret} == 0 ];then
     exit ${ret}
   fi
   i=$((i + 1))
