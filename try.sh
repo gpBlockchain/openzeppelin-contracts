@@ -1,3 +1,4 @@
+#!/bin/bash
 if echo "$1" | grep -Eq '^[0-9]+'; then
     try=$1
     shift && cmd="$@"
