@@ -11,6 +11,8 @@
     "openzeppelin-contracts-migrate-imports": "scripts/migrate-imports.js"
   },
   "scripts": {
+    "patch-hardhat": "patch-package hardhat",
+    "postinstall": "patch-package",
     "compile": "hardhat compile",
     "coverage": "env COVERAGE=true hardhat coverage",
     "docs": "oz-docs",
@@ -44,13 +46,11 @@
     "test:inheritance": "node scripts/inheritanceOrdering artifacts/build-info/*",
     "gas-report": "env ENABLE_GAS_REPORT=true npm run test",
     "sl ither": "npm run clean && slither . --detect reentrancy-eth,reentrancy-no-eth,reentrancy-unlimited-gas --filter-paths contracts/mocks",
-    
     "test:AccessControl": "hardhat test --config ./hardhat.config.AccessControl.js --network testRpc --grep \"Contract: AccessControl \"",
     "test:AccessControlEnum": "hardhat test --config ./hardhat.config.AccessControlEnum.js --network testRpc --grep \"Contract: AccessControlEnum \"",
     "test:Ownable": "hardhat test --config ./hardhat.config.Ownable.js --network testRpc --grep \"Contract: Ownable \"",
     "test:CrossChainEnabled": "hardhat test --config ./hardhat.config.CrossChainEnabled.js --network testRpc --grep \"Contract: CrossChainEnabled \"",
     "test:PaymentSplitter": "hardhat test --config ./hardhat.config.PaymentSplitter.js --network testRpc --grep \"Contract: PaymentSplitter \"",
-    
     "test:VestingWallet": "hardhat test --config ./hardhat.config.VestingWallet.js --network testRpc --grep \"Contract: VestingWallet \"",
     "test:GovernorCompatibilityBravo": "hardhat test --config ./hardhat.config.GovernorCompatibilityBravo.js --network testRpc --grep \"Contract: GovernorCompatibilityBravo \"",
     "test:GovernorComp": "hardhat test --config ./hardhat.config.GovernorComp.js --network testRpc --grep \"Contract: GovernorComp \"",
@@ -221,6 +221,7 @@
     "http-proxy-agent": "^5.0.0",
     "mochawesome": "^7.1.3",
     "mochawesome-report-generator": "^6.2.0",
-    "npm-run-all": "^4.1.5"
+    "npm-run-all": "^4.1.5",
+    "patch-package": "^6.4.7"
   }
 }
