@@ -60,14 +60,12 @@ async function transferCkb(privateKey, idx, to, value){
   wt = await wt.connect(provider);
   
   //get payload
-  let ckbProxyContract = await ethers.getContractAt("IERC20", CKB_PROXY_ADDRESS);
   console.log('------')
   while (true) {
     try {
-      let populateTx  = await ckbProxyContract.populateTransaction.transfer(to,value);
       const tx = await wt.sendTransaction({
-        to: populateTx.to,
-        data:populateTx.data
+        to: to,
+        value:value,
       });
       await tx.wait();
       if ((await provider.getBalance(to)).sub(value).gte('0')) {
