@@ -27,9 +27,26 @@ async function initWithParam () {
   console.log('init');
   const signer = await ethers.getSigners();
   const waitList = [];
+  const provider = (await ethers.getSigners())[0].provider;
+  if (!provider) {
+    console.log('Provider is undefined');
+    return;
+  }
+
+  let wt = new Wallet(PRIVATE_KEY);
+  wt = wt.connect(provider);
+  const baseNonce = await provider.getTransactionCount(wt.address);
+  let j = 0;
+  const transferValue = ethers.utils.parseEther(TRANSFER_ETHER);
+
   for (let i = 0; i < signer.length; i++) {
-    const aa = transfer(PRIVATE_KEY, i, signer[i].address, ethers.utils.parseEther(TRANSFER_ETHER));
-    waitList.push(aa);
+    const currentBalance = await provider.getBalance(signer[i].address);
+    if (currentBalance.sub(transferValue).lt(ethers.BigNumber.from('0'))) {
+      const currentNonce = baseNonce + j;
+      const aa = transfer(wt, i, signer[i].address, transferValue, currentNonce);
+      waitList.push(aa);
+      j++;
+    }
     await sleep(100);
   }
   for (let i = 0; i < waitList.length; i++) {
@@ -44,30 +61,22 @@ async function sleep (ms) {
   });
 }
 
-async function transfer (privateKey, idx, to, value) {
+async function transfer (wt, idx, to, value, currentNonce) {
   const provider = (await ethers.getSigners())[idx].provider;
   if (provider === undefined) {
     console.log('provider is undefined');
     return;
   }
 
-  if ((await provider.getBalance(to)).sub(value).gte('0')) {
-    return;
-  }
-  // init sign
-  let wt = new Wallet(privateKey);
-  wt = await wt.connect(provider);
-
   while (true) {
     try {
       const tx = await wt.sendTransaction({
         to: to,
         value: value,
+        nonce: currentNonce,
       });
       await tx.wait();
-      if ((await provider.getBalance(to)).sub(value).gte('0')) {
-        return;
-      }
+      break;
     } catch (e) {
       console.log('e:', e.toString());
     }
