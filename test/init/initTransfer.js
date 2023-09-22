@@ -23,7 +23,7 @@ describe('Transfer', function () {
   });
 });
 
-async function initWithParam () {
+async function initWithParam() {
   console.log('init');
   const signer = await ethers.getSigners();
   const waitList = [];
@@ -55,30 +55,35 @@ async function initWithParam () {
   return true;
 }
 
-async function sleep (ms) {
+async function sleep(ms) {
   return new Promise((resolve) => {
     setTimeout(resolve, ms);
   });
 }
 
-async function transfer (wt, idx, to, value, currentNonce) {
+async function transfer(wt, idx, to, value, currentNonce) {
   const provider = (await ethers.getSigners())[idx].provider;
-  if (provider === undefined) {
+  if (provider == undefined) {
     console.log('provider is undefined');
     return;
   }
 
-  while (true) {
+  const MAX_RETRIES = 50;
+  let attempt = 0;
+
+  while (attempt < MAX_RETRIES) {
     try {
       const tx = await wt.sendTransaction({
         to: to,
         value: value,
-        nonce: currentNonce,
+        nonce: currentNonce
       });
       await tx.wait();
-      break;
+      return;
     } catch (e) {
       console.log('e:', e.toString());
     }
+    attempt++;
   }
+  throw new Error('Failed to transfer after ' + MAX_RETRIES + ' attempts.');
 }
